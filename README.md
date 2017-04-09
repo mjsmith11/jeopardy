@@ -15,4 +15,4 @@ A web-based Jeopardy game for CS690 written in ASP.NET and C#.NET
 1. A 403 message in the browser indicates that the URL in the browser is probably wrong.
 
 ## Note on Database_Connection
-This library connects to a MySQL database hosted on mysql.CS690.mattsmithcs.com. This database will be removed from the server on or after May 10, 2017. In order to use a different database, the project will need rebuild with updated connection info.
+This library connects to a MySQL database hosted on mysql.CS690.mattsmithcs.com. This database will be removed from the server on or after May 10, 2017. In order to use a different database, the project will need rebuild with updated connection info in Database_Connection.DBTable.cs.
