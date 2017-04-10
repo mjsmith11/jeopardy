@@ -7,6 +7,9 @@ using MySql.Data.MySqlClient;
 
 namespace DatabaseConnection
 {
+    /// <summary>
+    /// Class for inteacting with high scores table in the database
+    /// </summary>
     public class HighScoresTable : DBTable
     {
         /// <summary>
@@ -55,6 +58,11 @@ namespace DatabaseConnection
             return success;
         }
 
+        /// <summary>
+        /// Removes a record from the database based on primary key
+        /// </summary>
+        /// <param name="primaryKey">high_score_id for the question to delete</param>
+        /// <returns>true if the operation succeeds and false if it fails</returns>
         public override bool deleteRecord(int primaryKey)
         {
             bool success;
@@ -124,7 +132,8 @@ namespace DatabaseConnection
         /// <summary>
         /// reads the entire high score table
         /// </summary>
-        /// <returns>List of HighScoreData objects. Each object in the list is a record from the table</returns>
+        /// <returns>List of HighScoreData objects. Each object in the list is a record from the table. This could be
+        /// an empty list</returns>
         public override List<object> readAll()
         {
             List<object> records = new List<object>();

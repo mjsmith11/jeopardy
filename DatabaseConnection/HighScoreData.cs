@@ -46,7 +46,12 @@ namespace DatabaseConnection
             this.gameID = gameID;
         }
 
-
+        /// <summary>
+        /// 3 argument constructor that sets the ID to 0
+        /// </summary>
+        /// <param name="score">initial value for score</param>
+        /// <param name="name">initial value for name</param>
+        /// <param name="gameID">initial value for gameID</param>
         public HighScoreData(int score, string name, int gameID)
         {
             this.ID = 0;
