@@ -30,7 +30,7 @@ namespace Jeopardy_Game
                     for(int i=0; i<NUM_CATEGORIES; i++)
                     {
                         TableCell cell = new TableCell();
-                        cell.Text = value.ToString();
+                        cell.Text = "$"+value.ToString();
                         row.Cells.Add(cell);
                     }
                 }                
