@@ -111,6 +111,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameBoardCell.cs" />
     <Compile Include="GameBoard.aspx.cs">
       <DependentUpon>GameBoard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
