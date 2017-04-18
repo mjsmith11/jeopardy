@@ -95,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="GameBoardUI.aspx" />
+    <Content Include="jeopardy.css" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

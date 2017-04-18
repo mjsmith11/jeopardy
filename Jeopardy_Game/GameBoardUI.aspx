@@ -5,12 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <link rel="stylesheet" type="text/css" href="jeopardy.css"/>
 </head>
 <body>
     <form id="form1" runat="server">
     <div>
     
-        <asp:Table ID="tblGameboard" runat="server" BackColor="#0719B8" BorderColor="Black" BorderStyle="Solid" BorderWidth="5px" CellPadding="20" CellSpacing="5" Font-Bold="True" Font-Names="Arial Black" Font-Size="XX-Large" ForeColor="#F3B94E" GridLines="Both">
+        <asp:Table ID="tblGameboard" runat="server" BackColor="#0719B8" BorderColor="Black" BorderStyle="Solid" BorderWidth="5px" CellPadding="10" CellSpacing="10" Font-Bold="True" Font-Names="Arial Black" Font-Size="XX-Large" ForeColor="#F3B94E" GridLines="Both">
         </asp:Table>
     
     </div>

@@ -75,6 +75,7 @@ namespace Jeopardy_Game
                 cell.HorizontalAlign = HorizontalAlign.Center;
                 cell.VerticalAlign = VerticalAlign.Middle;
                 cell.Text = category;
+                cell.CssClass = "boardHead";
                 Header.Cells.Add(cell);
             }
             foreach (int value in gb.values)
@@ -95,6 +96,7 @@ namespace Jeopardy_Game
                     cell.Controls.Add(b);
                     b.Click += Cell_Click;
                     buttons.Add(b);
+                    b.CssClass = "GameBoardCell";
            
                     row.Cells.Add(cell);
                 }
