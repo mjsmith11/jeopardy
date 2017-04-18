@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="GameBoard.aspx.cs" Inherits="Jeopardy_Game.GameBoard" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="GameBoardUI.aspx.cs" Inherits="Jeopardy_Game.GameBoardUI" %>
 
 <!DOCTYPE html>
 

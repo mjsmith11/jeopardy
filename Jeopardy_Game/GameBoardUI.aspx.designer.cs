@@ -10,7 +10,7 @@
 namespace Jeopardy_Game {
     
     
-    public partial class GameBoard {
+    public partial class GameBoardUI {
         
         /// <summary>
         /// form1 control.
