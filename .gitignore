@@ -275,3 +275,5 @@ __pycache__/
 
 # Access Lock File
 *.ldb
+
+*/Web.config

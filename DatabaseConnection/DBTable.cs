@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
+using System.Configuration;
 
 namespace DatabaseConnection
 {
@@ -21,26 +22,7 @@ namespace DatabaseConnection
         /// This variable will contain additional information on the last error to occur
         /// </summary>
         public string errorMessage { get; set; }
-
-        #region connection info
-        /// <summary>
-        /// MySQL server. this can be an IP or URL
-        /// </summary>
-        private const string SERVER = "mysql.cs690.mattsmithcs.com";
-        /// <summary>
-        /// Name of the database on to use on the server
-        /// </summary>
-        private const string DATABASE = "jeopardy_data";
-        /// <summary>
-        /// Username to use for logging into the database.
-        /// </summary>
-        private const string UID = "jeopardy";
-        /// <summary>
-        /// Password for logging into the database.
-        /// </summary>
-        private const string PASSWORD = "Po-Tay-Toes!";
-        #endregion
-
+        
         /// <summary>
         /// Constructor
         /// </summary>
@@ -48,6 +30,10 @@ namespace DatabaseConnection
         {
             if(connection==null)
             {
+                string SERVER = ConfigurationManager.AppSettings["mysql_server"];
+                string DATABASE = ConfigurationManager.AppSettings["mysql_database"];
+                string UID = ConfigurationManager.AppSettings["mysql_user_id"];
+                string PASSWORD = ConfigurationManager.AppSettings["mysql_password"];
                 string connectionString = "SERVER=" + SERVER + ";" + "DATABASE=" + DATABASE + ";" + "UID=" + UID + ";" + "PASSWORD=" + PASSWORD + ";";
                 connection = new MySqlConnection(connectionString);
             }

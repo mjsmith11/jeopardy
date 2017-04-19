@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Collections;
+using DatabaseConnection;
 
 namespace Jeopardy_Game
 {
@@ -12,6 +13,9 @@ namespace Jeopardy_Game
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            QuestionTable qt = new QuestionTable();
+            QuestionData qd = (QuestionData)qt.readById(26);
+            Response.Write(qd.question_text);
             //Gameboard gb = (Gameboard)Session["Gameboard"];
             //updateGameboard(gb);
         }
