@@ -13,9 +13,6 @@ namespace Jeopardy_Game
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            QuestionTable qt = new QuestionTable();
-            QuestionData qd = (QuestionData)qt.readById(26);
-            Response.Write(qd.question_text);
             //Gameboard gb = (Gameboard)Session["Gameboard"];
             //updateGameboard(gb);
         }
