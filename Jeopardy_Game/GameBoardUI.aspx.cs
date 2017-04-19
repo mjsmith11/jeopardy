@@ -88,6 +88,7 @@ namespace Jeopardy_Game
                     Question q = gb.getQuestion(category, value);
                     TableCell cell = new TableCell();
 
+                    cell.CssClass = "boardCell";
                     cell.HorizontalAlign = HorizontalAlign.Center;
                     cell.VerticalAlign = VerticalAlign.Middle;
                     JeopardyButton b = new JeopardyButton();

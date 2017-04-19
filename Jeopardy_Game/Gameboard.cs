@@ -21,7 +21,7 @@ namespace Jeopardy_Game
             questions = new Hashtable();
             categories = new List<string>();
             values = new List<int>();
-            for(int i=100; i<=500; i+=100)
+            for(int i=200; i<=1000; i+=200)
             {
                 values.Add(i);
             }
@@ -49,7 +49,7 @@ namespace Jeopardy_Game
         {
             for(int i=0; i<6; i++)
             {
-                for(int j=100; j<=500; j++)
+                for(int j=200; j<=1000; j+=200)
                 {
                     Question q = new Question();
                     q.display = true;

@@ -10,7 +10,7 @@ A web-based Jeopardy game for CS690 written in ASP.NET and C#.NET
 1. Install [.NET MySQL Connector](https://dev.mysql.com/downloads/connector/net/)
 1. Clone this repository
 1. Copy the Example_Web.config file to Web.config
-1. Add your mysql connection info in the appSettings node of Web.config
+1. Add your mysql connection info in the appSettings node of Web.config and remove the html comment notation
 1. Open the solution with Visual Studio
 1. Right click the Jeopardy_Game project in the solution explorer and choose "Set As StartUp Project"
 1. Click the green triangle button to run the project. This will start a web server inside of Visual Studio and open a web browser to show the web pages.

@@ -1,24 +1,39 @@
 ﻿body {
+    height:100%;
 }
  input.GameBoardCell
  {
+     width:95%;
+     height:95%;
      background-color:#0719B8;
      border:none;
      color:#D69F4C;
-     padding: 10% 15%;
+     padding: 1% 1%;
      text-align: center;
      font-size:175%;
      font-weight: 900;
-     text-shadow:5px 5px black
+     text-shadow:5px 5px black;
+     cursor:pointer;
      
  }
 
  input.GameBoardCell:hover
  {
-     background-color:#151B72
+     background-color:#151B72;
  }
 
  td.boardHead
  {
      text-shadow:3px 3px black;
+     width:275px;
+ }
+
+ td.boardCell
+ {
+     height:125px;
+ }
+
+ table
+ {
+     table-layout:fixed;
  }
