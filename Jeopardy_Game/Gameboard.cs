@@ -45,6 +45,16 @@ namespace Jeopardy_Game
             return (Question)questions[key];
         }
 
+        public void increaseScore(int amount)
+        {
+            currentScore += amount;
+        }
+
+        public void decreaseScore(int amount)
+        {
+            currentScore -= amount;
+        }
+
         private void populateTestQuestions()
         {
             for(int i=0; i<6; i++)

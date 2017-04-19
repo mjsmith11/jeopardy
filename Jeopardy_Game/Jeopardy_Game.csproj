@@ -108,6 +108,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="QuestionUI.aspx" />
     <Content Include="SampleWebForm.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -124,6 +125,13 @@
     <Compile Include="JeopardyButton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Question.cs" />
+    <Compile Include="QuestionUI.aspx.cs">
+      <DependentUpon>QuestionUI.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="QuestionUI.aspx.designer.cs">
+      <DependentUpon>QuestionUI.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SampleWebForm.aspx.cs">
       <DependentUpon>SampleWebForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
