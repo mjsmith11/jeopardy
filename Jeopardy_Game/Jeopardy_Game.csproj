@@ -121,6 +121,9 @@
       <DependentUpon>Game.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Game.aspx.designer.cs">
+      <DependentUpon>Game.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Gameboard.cs" />
     <Compile Include="GameBoardCell.cs" />
     <Compile Include="GameBoardUI.aspx.cs">
