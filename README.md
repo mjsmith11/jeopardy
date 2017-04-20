@@ -34,4 +34,4 @@ This application relies on an external mysql database for storing its questions 
 	1. category-The category for the question. Categories that are the same must match exactly including case
 	1. level-the difficulty of the question. integers 1-5
 	1. reference-Where the question came from.
-1. Three database fields are not in this csv format: ID because it uses auto-increment, used because this is initialized to false for all questions, and image_file because image questions cannot be added by this method.
+1. Three database fields are not in this csv format: ID because it uses auto-increment, used because this is initialized to false for all questions, and image_file because image questions cannot be added by this method.Iman
