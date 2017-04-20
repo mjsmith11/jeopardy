@@ -1,4 +1,5 @@
-﻿using System;
+﻿#define DEBUG
+using System;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
@@ -25,7 +26,9 @@ namespace Jeopardy_Game
             {
                 values.Add(i);
             }
+#if(DEBUG)
             populateTestQuestions();
+#endif
 
         }
 

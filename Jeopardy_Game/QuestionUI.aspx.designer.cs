@@ -31,6 +31,24 @@ namespace Jeopardy_Game {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divHeadings;
         
         /// <summary>
+        /// lblCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCategory;
+        
+        /// <summary>
+        /// lblValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblValue;
+        
+        /// <summary>
         /// divQuestion control.
         /// </summary>
         /// <remarks>
@@ -40,6 +58,15 @@ namespace Jeopardy_Game {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divQuestion;
         
         /// <summary>
+        /// lblQuestionText control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblQuestionText;
+        
+        /// <summary>
         /// divAnswers control.
         /// </summary>
         /// <remarks>
@@ -47,5 +74,41 @@ namespace Jeopardy_Game {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAnswers;
+        
+        /// <summary>
+        /// btnAnswer1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAnswer1;
+        
+        /// <summary>
+        /// btnAnswer2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAnswer2;
+        
+        /// <summary>
+        /// btnAnswer3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAnswer3;
+        
+        /// <summary>
+        /// btnAnswer4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAnswer4;
     }
 }
