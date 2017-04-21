@@ -1,4 +1,4 @@
-﻿#define DEBUG
+﻿#undef DEBUG
 
 using System;
 using System.Collections.Generic;
@@ -11,28 +11,28 @@ namespace Jeopardy_Game
 {
     public partial class QuestionUI : System.Web.UI.Page
     {
-        private int correctButtonNum;
-        private int value;
         protected void Page_Load(object sender, EventArgs e)
         {
 #if (DEBUG)
             populateDebugData();
 #endif
-            Question q = null;
-            if(Session["Question"] != null)
-                q = (Question)Session["Question"];
+            if (!IsPostBack)
+            {
+                Question q = null;
+                if (Session["Question"] != null)
+                    q = (Question)Session["Question"];
 
-            lblCategory.Text = q.data.category;
-            lblValue.Text = "$"+q.getValueForScoring().ToString();
-            lblQuestionText.Text = q.data.question_text.ToUpper();
+                lblCategory.Text = q.data.category;
+                lblValue.Text = "$" + q.getValueForScoring().ToString();
+                lblQuestionText.Text = q.data.question_text.ToUpper();
 
-            string[] choices = randomizeAnswers(q);
-            displayAnswers(choices, q);
+                string[] choices = randomizeAnswers(q);
+                displayAnswers(choices, q);
 
-            value = q.getValueForScoring();
+                Session["value"] = q.getValueForScoring();
 
-            Session["Question"] = null; //remove the session variable so this only loads once each time the gameboard passes in a question.
-
+                Session["Question"] = null; //remove the session variable so this only loads once each time the gameboard passes in a question.
+            }
         }
 
         private string[] randomizeAnswers(Question q)
@@ -50,6 +50,7 @@ namespace Jeopardy_Game
         private void displayAnswers(string[] answers, Question q)
         {
             string correctAns = q.data.correct_answer;
+            int correctButtonNum=0;
 
             btnAnswer1.Text = answers[0];
             if (answers[0].Equals(correctAns))
@@ -66,6 +67,8 @@ namespace Jeopardy_Game
             btnAnswer4.Text = answers[3];
             if (answers[3].Equals(correctAns))
                 correctButtonNum = 4;
+
+            Session["Correct"] = correctButtonNum;
 
         }
 
@@ -101,14 +104,23 @@ namespace Jeopardy_Game
 
         private void processAnswerChoice(int buttonNum)
         {
-            if(buttonNum == correctButtonNum)
+            int value = (int)Session["value"];
+            Session["value"] = null;
+
+            int correctButtonNum = (int)Session["Correct"];
+            Session["Correct"] = null;
+
+            Gameboard gb = (Gameboard)Session["Gameboard"];
+            if (buttonNum == correctButtonNum)
             {
-                //Correct!
+                gb.increaseScore(value);
             }
             else
             {
-                //wrong!
+                gb.decreaseScore(value);
             }
+            Session["Gameboard"] = gb;
+            Response.Redirect("GameBoardUI.aspx");
         }
     }
 }

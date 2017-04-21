@@ -9,10 +9,14 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
+    <div class=>
     
         <asp:Table ID="tblGameboard" runat="server" BackColor="#0719B8" BorderColor="Black" BorderStyle="Solid" BorderWidth="5px" CellPadding="10" CellSpacing="10" Font-Bold="True" Font-Names="Arial Black" Font-Size="XX-Large" ForeColor="#F3B94E" GridLines="Both">
         </asp:Table>
+   
+        <div class="info_area">
+        <asp:Label ID="lblGameInfo" runat="server" Text="" CssClass="Label"></asp:Label>
+            </div>
     
     </div>
     </form>

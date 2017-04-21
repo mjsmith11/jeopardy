@@ -1,7 +1,8 @@
 ﻿body {
     height:100%;
     font-family:Arial;
-    background-image:url("Resources//images/jeopardy.jpg");
+    background-image:url("Resources//images/jeopardy1.jpg");
+    background-size:1920px 1080px;
 }
  input.GameBoardCell
  {
@@ -71,18 +72,93 @@
      table-layout:fixed;
  }
 
- .question_area
+ .play_area
  {
      display:block;
      margin:0 auto;
      background-color:#0719B8;
      width:75%;
+     border:solid 5px;
+ }
+ #lblCategory
+ {
+     width:50%;
+     color:white;
+     font-size:275%;
+     padding:20px;
+     font-weight:700;
+     text-shadow:3px 3px black;
  }
 
+ #lblValue
+ {
+     width:50%;
+     font-size:275%;
+     font-weight: 700;
+     text-shadow:3px 3px black;
+     padding: 1% 1%;
+     color:#D69F4C;
+ }
  #tblGameboard
  {
      display:block;
      width:1650px;
      table-layout:fixed;
      margin:0 auto;
+ }
+
+ .headings
+ {
+     display:block;
+     width:100%;
+     margin:0 auto;
+     border-bottom:2px solid;
+ }
+
+ #imgDailyDouble
+ {
+     display:block;
+     width:40%;
+     margin:0 auto;
+ }
+
+ #wager_area
+ {
+     text-align:center;
+ }
+
+.Label
+ {
+     color:white;
+     font-size:150%;
+     font-weight:600;
+     text-shadow:3px 3px black;
+ }
+
+ #btnSubmit
+ {
+     background-color:lightgray;
+     color:black;
+     font-size:110%;
+     font-weight:300;
+     border:2px solid black
+ }
+
+ #tbxWager{
+     border:2px solid;
+ }
+
+ #lblError
+ {
+     color:red;
+     font-size:100%;
+     font-weight:100;
+     text-shadow:1px 1px black;
+ }
+ .info_area
+ {
+     width:1650px;
+     display:block;
+     margin:0 auto;
+
  }

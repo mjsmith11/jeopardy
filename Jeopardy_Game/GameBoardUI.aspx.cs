@@ -21,7 +21,7 @@ namespace Jeopardy_Game
         protected void Page_Init(object sender, EventArgs e)
         {
             Gameboard gb;
-            if (!IsPostBack)
+            if (Session["Gameboard"]==null)
             {
                 gb = new Gameboard();
                 Session["Gameboard"] = gb;
@@ -31,7 +31,8 @@ namespace Jeopardy_Game
                 gb = (Gameboard)Session["Gameboard"];
             }
             drawGameboard(gb);
-                
+            updateGameboard(gb);
+               
             
         }
         
@@ -43,6 +44,16 @@ namespace Jeopardy_Game
             gb.getQuestion(btn.category, btn.dollarValue).display = false;
             updateGameboard(gb);
             Session["Gameboard"] = gb;
+            Question q = gb.getQuestion(btn.category, btn.dollarValue);
+            Session["Question"] = q;
+            if(q.wagerActive)
+            {
+                Response.Redirect("Wager.aspx");
+            }
+            else
+            {
+                Response.Redirect("QuestionUI.aspx");
+            }
 
 
         }
@@ -63,6 +74,7 @@ namespace Jeopardy_Game
                 }
             }
             Session["GameBoardButtons"] = buttons;
+            updateGameInfo();
         }
 
         private void drawGameboard(Gameboard gb)
@@ -105,6 +117,12 @@ namespace Jeopardy_Game
                 }
             }
             Session["GameBoardButtons"] = buttons;
+            updateGameInfo();
         }
+        private void updateGameInfo()
+        {
+            Gameboard gb = (Gameboard)Session["Gameboard"];
+            lblGameInfo.Text = "Round: " + gb.currentRound + "&nbsp;&nbsp;&nbsp;&nbsp;"+"Score: $" + gb.currentScore;
+        } 
     }
 }

@@ -9,10 +9,12 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div class="question_area">
+    <div class="play_area">
         <div id="divHeadings" class="headings" runat="server">
             <asp:Label ID="lblCategory" runat="server" Text="" CssClass="question_heading"></asp:Label>
             <asp:Label ID="lblValue" runat="server" Text="" CssClass="question_heading"></asp:Label>
+            <br />
+            <br />
         </div>
         <div id="divQuestion" class="question_material" runat="server">
             <asp:Label ID="lblQuestionText" runat="server" Text="" CssClass="question_text"></asp:Label>

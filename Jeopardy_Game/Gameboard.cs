@@ -72,6 +72,7 @@ namespace Jeopardy_Game
                     this.addQuestion(q);
                 }
             }
+            getQuestion(categories[0], 200).wagerActive = true;
         }
     }
 }

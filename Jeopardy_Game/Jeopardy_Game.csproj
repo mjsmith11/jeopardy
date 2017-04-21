@@ -111,9 +111,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="QuestionUI.aspx" />
+    <Content Include="Resources\images\Daily_Double.png" />
+    <Content Include="Resources\images\jeopardy1.jpg" />
     <Content Include="Resources\images\jeopardy.jpg" />
+    <Content Include="Resources\sounds\dailydouble.wav" />
     <Content Include="SampleWebForm.aspx" />
     <Content Include="StartGame.aspx" />
+    <Content Include="Wager.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +167,13 @@
     </Compile>
     <Compile Include="StartGame.aspx.designer.cs">
       <DependentUpon>StartGame.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Wager.aspx.cs">
+      <DependentUpon>Wager.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wager.aspx.designer.cs">
+      <DependentUpon>Wager.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
