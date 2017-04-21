@@ -1,6 +1,4 @@
-﻿#undef DEBUG
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,9 +11,6 @@ namespace Jeopardy_Game
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-#if (DEBUG)
-            populateDebugData();
-#endif
             if (!IsPostBack)
             {
                 Question q = null;
@@ -70,16 +65,6 @@ namespace Jeopardy_Game
 
             Session["Correct"] = correctButtonNum;
 
-        }
-
-        private void populateDebugData()
-        {
-            Question q = new Question();
-            q.display = true;
-            q.value = 1500;
-            q.wagerActive = false;
-            q.data = new DatabaseConnection.QuestionData("This is My question?", "Right", "W1", "W2", "W3", "question Category", 2, "ref", false, "");
-            Session["Question"] = q;
         }
 
         protected void btnAnswer1_Click(object sender, EventArgs e)
