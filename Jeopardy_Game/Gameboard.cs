@@ -1,5 +1,4 @@
-﻿#undef DEBUG
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
@@ -15,7 +14,7 @@ namespace Jeopardy_Game
         private Hashtable questions;
         public List<string> roundCategories { get; }
         private List<string> gameCategories { get; set; }
-        public List<int> values { get; }
+        public List<int> values { get; set; }
 
         public Gameboard()
         {
@@ -28,10 +27,6 @@ namespace Jeopardy_Game
             {
                 values.Add(i);
             }
-#if(DEBUG)
-            populateTestQuestions();
-#endif
-
         }
 
         public void addQuestion(Question q)
@@ -131,7 +126,66 @@ namespace Jeopardy_Game
         private void setupSecondRound()
         {
             currentRound = 2;
-            throw new NotImplementedException();
+            questions.Clear();
+            roundCategories.Clear();
+            values = (from v in values select 2 * v).ToList();
+
+            bool needPicture = false;
+            QuestionTable qt = new QuestionTable();
+            List<int> usedQuestions = new List<int>();
+            Random rnd = new Random();
+
+            //choose questions from second 6 categories
+            for (int i = 6; i < 12; i++)
+            {
+                string currentCategory = gameCategories[i];
+                List<object> categoryQuestions = qt.getUnusedQuestionsByCategory(currentCategory);
+                //reset the questions if we do not have enough in this to populate this category
+                if (!checkForAllLevels(categoryQuestions))
+                {
+                    qt.resetQuestionUsage();
+                    categoryQuestions = qt.getUnusedQuestionsByCategory(currentCategory);
+                }
+
+                //choose a question for each level
+                for (int j = 1; j <= 5; j++)
+                {
+                    List<object> questionsAtLevel = (from q in categoryQuestions where (((QuestionData)q).level == j) select q).ToList();
+                    List<object> pictureQuestions = questionsAtLevel.Where(q => (!((QuestionData)q).image_file.Equals(""))).ToList();
+                    Question question;
+                    if (pictureQuestions.Count > 0 && needPicture)
+                    {
+                        int index = rnd.Next(pictureQuestions.Count);
+                        question = new Question(200 * j, (QuestionData)pictureQuestions[index]);
+                        needPicture = false;
+                    }
+                    else
+                    {
+                        int index = rnd.Next(questionsAtLevel.Count);
+                        question = new Jeopardy_Game.Question(200 * j, (QuestionData)questionsAtLevel[index]);
+                    }
+                    this.addQuestion(question);
+                    usedQuestions.Add(question.data.question_id);
+                }
+            }
+
+            //mark questions used
+            qt.markQuestionsUsed(usedQuestions);
+
+            //choose a daily double
+            string ddCategory = roundCategories[rnd.Next(6)];
+            int ddValue = values[rnd.Next(6)];
+            getQuestion(ddCategory, ddValue).wagerActive = true;
+
+            //choose a second daily double that is different than the first one
+            string dd2Category = ddCategory;
+            int dd2Value = ddValue;
+            while((dd2Category.Equals(ddCategory))&&(dd2Value==ddValue))
+            {
+                dd2Category = roundCategories[rnd.Next(6)];
+                dd2Value = values[rnd.Next(6)];
+            }
+            getQuestion(dd2Category, dd2Value).wagerActive = true;
         }
 
         private void setupFinalJeopardy()

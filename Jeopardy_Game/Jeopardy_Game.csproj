@@ -94,6 +94,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="EndOfRound.aspx" />
     <Content Include="Game.aspx" />
     <Content Include="GameBoardUI.aspx" />
     <Content Include="index.aspx" />
@@ -119,6 +120,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EndOfRound.aspx.cs">
+      <DependentUpon>EndOfRound.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EndOfRound.aspx.designer.cs">
+      <DependentUpon>EndOfRound.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Game.aspx.cs">
       <DependentUpon>Game.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

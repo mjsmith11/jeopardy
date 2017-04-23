@@ -32,7 +32,7 @@ namespace Jeopardy_Game
             JeopardyButton btn = (JeopardyButton)sender;
             Gameboard gb = (Gameboard)Session["Gameboard"];
             gb.getQuestion(btn.category, btn.dollarValue).display = false;
-            updateGameboard(gb);
+            //updateGameboard(gb);
             Session["Gameboard"] = gb;
             Question q = gb.getQuestion(btn.category, btn.dollarValue);
             Session["Question"] = q;
@@ -50,13 +50,14 @@ namespace Jeopardy_Game
 
         private void updateGameboard(Gameboard gb)
         {
-           
+            bool visibleQuestions = false;
             List<JeopardyButton> buttons = (List<JeopardyButton>)Session["GameBoardButtons"];
             foreach(JeopardyButton b in buttons)
             {
                 if(gb.getQuestion(b.category,b.dollarValue).display)
                 {
                     b.Visible = true;
+                    visibleQuestions = true;
                 }
                 else
                 {
@@ -64,7 +65,12 @@ namespace Jeopardy_Game
                 }
             }
             Session["GameBoardButtons"] = buttons;
+            if(!visibleQuestions)
+            {
+                Response.Redirect("EndOfRound.aspx");
+            }
             updateGameInfo();
+            
         }
 
         private void drawGameboard(Gameboard gb)

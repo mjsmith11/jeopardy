@@ -200,3 +200,21 @@
      font-weight:600;
      text-shadow:2px 2px black;
  }
+ div.roundTransition
+ {
+     display:block;
+     margin:0 auto;
+     background-color:#0719B8;
+     width:75%;
+     border:solid 5px;
+     text-align:center;
+ }
+
+ #btnContinue
+ {
+     background-color:lightgray;
+     color:black;
+     font-size:110%;
+     font-weight:300;
+     border:2px solid black
+ }
