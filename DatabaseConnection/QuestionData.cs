@@ -19,6 +19,7 @@ namespace DatabaseConnection
         public string reference { get; set; }
         public bool used { get; set; }
         public string image_file { get; set; }
+        public bool randomize_answers { get; set; }
 
         /// <summary>
         /// 11 parameter constructor
@@ -34,7 +35,8 @@ namespace DatabaseConnection
         /// <param name="reference">initial value</param>
         /// <param name="used">initial value</param>
         /// <param name="image_file">initial value</param>
-        public QuestionData(int question_id, string question_text, string correct_answer, string wrong_answer_1, string wrong_answer_2, string wrong_answer_3, string category, int level, string reference, bool used, string image_file)
+        /// <param name="randomize_answers">initial value</param>
+        public QuestionData(int question_id, string question_text, string correct_answer, string wrong_answer_1, string wrong_answer_2, string wrong_answer_3, string category, int level, string reference, bool used, string image_file, bool randomize_answers)
         {
             this.question_id = question_id;
             this.question_text = question_text;
@@ -47,7 +49,9 @@ namespace DatabaseConnection
             this.reference = reference;
             this.used = used;
             this.image_file = image_file;
+            this.randomize_answers = randomize_answers;
         }
+
 
         /// <summary>
         /// 10 parameter constructor that sets question_id to 0
@@ -62,7 +66,8 @@ namespace DatabaseConnection
         /// <param name="reference">initial value</param>
         /// <param name="used">initial value</param>
         /// <param name="image_file">initial value</param>
-        public QuestionData(string question_text, string correct_answer, string wrong_answer_1, string wrong_answer_2, string wrong_answer_3, string category, int level, string reference, bool used, string image_file)
+        /// <param name="randomize_answers">initial value</param>
+        public QuestionData(string question_text, string correct_answer, string wrong_answer_1, string wrong_answer_2, string wrong_answer_3, string category, int level, string reference, bool used, string image_file, bool randomize_answers)
         {
             this.question_id = 0;
             this.question_text = question_text;
@@ -75,6 +80,7 @@ namespace DatabaseConnection
             this.reference = reference;
             this.used = used;
             this.image_file = image_file;
+            this.randomize_answers = randomize_answers;
         }
 
         /// <summary>

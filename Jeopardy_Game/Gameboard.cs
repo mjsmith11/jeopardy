@@ -68,7 +68,7 @@ namespace Jeopardy_Game
                     q.display = true;
                     q.value = j;
                     q.wagerActive = false;
-                    q.data = new DatabaseConnection.QuestionData("?????", "Right", "W1", "W2", "W3", "Category #" + i, j / 100, "ref", false, "");
+                    q.data = new DatabaseConnection.QuestionData("?????", "Right", "W1", "W2", "W3", "Category #" + i, j / 100, "ref", false, "",true);
                     this.addQuestion(q);
                 }
             }

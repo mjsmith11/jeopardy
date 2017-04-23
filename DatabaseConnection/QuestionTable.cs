@@ -32,6 +32,7 @@ namespace DatabaseConnection
         /// reference - string
         /// used -bool
         /// image_file string
+        /// randomize_answers bool
         /// </summary>
         /// <returns></returns>
         public override bool createTable()
@@ -48,6 +49,7 @@ namespace DatabaseConnection
                 "reference VARCHAR(200)," +
                 "used BOOL NOT NULL," +
                 "image_file VARCHAR(200)," +
+                "randomize_answers BOOL NOT NULL," +
                 "PRIMARY KEY (question_id)" +
                 ")";
             bool success;
@@ -110,7 +112,7 @@ namespace DatabaseConnection
                 return false;
             }
             bool success;
-            string qry = "INSERT INTO questions(question_text, correct_answer, wrong_answer_1, wrong_answer_2, wrong_answer_3, category, level, reference, used, image_file) VALUES(@a, @b, @c, @d, @e, @f, @g, @h, @i, @j)";
+            string qry = "INSERT INTO questions(question_text, correct_answer, wrong_answer_1, wrong_answer_2, wrong_answer_3, category, level, reference, used, image_file, randomize_answers) VALUES(@a, @b, @c, @d, @e, @f, @g, @h, @i, @j, @k)";
 
             if (this.openConnection())
             {
@@ -126,6 +128,7 @@ namespace DatabaseConnection
                 cmd.Parameters.AddWithValue("@h", d.reference);
                 cmd.Parameters.AddWithValue("@i", d.used);
                 cmd.Parameters.AddWithValue("@j", d.image_file);
+                cmd.Parameters.AddWithValue("@k", d.randomize_answers);
                 int rowsAffected = cmd.ExecuteNonQuery();
                 this.closeConnection();
                 success = true;
@@ -218,7 +221,7 @@ namespace DatabaseConnection
                 return false;
             }
             bool success;
-            string qry = "UPDATE high_scores SET question_text=@a, correct_answer=@b, wrong_answer_1=@c, wrong_answer_2=@d, wrong_answer_3=@e, category=@f, level=@g, reference=@h, used=@i, image_file=@j WHERE question_id=@k";
+            string qry = "UPDATE high_scores SET question_text=@a, correct_answer=@b, wrong_answer_1=@c, wrong_answer_2=@d, wrong_answer_3=@e, category=@f, level=@g, reference=@h, used=@i, image_file=@j, randomize_answers=@m WHERE question_id=@k";
             if (this.openConnection())
             {
                 QuestionData d = (QuestionData)record;
@@ -234,6 +237,7 @@ namespace DatabaseConnection
                 cmd.Parameters.AddWithValue("@i", d.used);
                 cmd.Parameters.AddWithValue("@j", d.image_file);
                 cmd.Parameters.AddWithValue("@k", d.question_id);
+                cmd.Parameters.AddWithValue("@m", d.randomize_answers);
                 int rowsAffected = cmd.ExecuteNonQuery();
 
                 success = true;
@@ -366,7 +370,7 @@ namespace DatabaseConnection
         /// <summary>
         /// Parses a CSV file with no headings and the following columns in order: question_text, correct_answer, wrong_answer1, wrong_answer2,
         /// wrong_answer3, category, level, reference. Each row of the file is inserted as a record in the database that has not been used. This 
-        /// method does not support picture questions
+        /// method does not support picture questions or questions with answers that cannot be in random order
         /// </summary>
         /// <param name="csvPath">Path to csv file to import</param>
         /// <returns>true if the operation succeeds and false if it fails</returns>
@@ -389,7 +393,7 @@ namespace DatabaseConnection
                 int level = Int32.Parse(fields[6]);
                 string reference = fields[7];
 
-                QuestionData q = new QuestionData(question, correct, wrong1, wrong2, wrong3, category, level, reference, false, "");
+                QuestionData q = new QuestionData(question, correct, wrong1, wrong2, wrong3, category, level, reference, false, "", true);
                 result &= this.insertRecord(q); //this will change result from true to false but will not change it from false to true
             }
             return result;
@@ -416,8 +420,9 @@ namespace DatabaseConnection
                 string reference = rdr["reference"].ToString();
                 bool used = Boolean.Parse(rdr["used"].ToString());
                 string image = rdr["image_file"].ToString();
+                bool rand = Boolean.Parse(rdr["randomize_answers"].ToString());
 
-                list.Add(new QuestionData(id, questionText, correct, wrong1, wrong2, wrong3, category, level, reference, used, image));
+                list.Add(new QuestionData(id, questionText, correct, wrong1, wrong2, wrong3, category, level, reference, used, image, rand));
             }
             return list;
         }
