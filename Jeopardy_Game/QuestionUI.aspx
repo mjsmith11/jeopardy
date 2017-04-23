@@ -18,6 +18,11 @@
         </div>
         <div id="divQuestion" class="question_material" runat="server">
             <asp:Label ID="lblQuestionText" runat="server" Text="" CssClass="question_text"></asp:Label>
+            <div id="divPicture" runat="server">
+                <asp:Image ID="imgQuestion" runat="server" />
+                <br />
+                <br />
+            </div>
         </div>
         <div id="divAnswers" class="answer_choices" runat="server">
             <asp:Button ID="btnAnswer1" runat="server" Text="" OnClick="btnAnswer1_Click" CssClass="answer_choice"/>

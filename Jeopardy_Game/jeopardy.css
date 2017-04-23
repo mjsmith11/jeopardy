@@ -160,5 +160,12 @@
      width:1650px;
      display:block;
      margin:0 auto;
+ }
 
+ #imgQuestion
+ {
+     width:50%;
+     display:block;
+     margin:0 auto;
+     border:1px solid black;
  }

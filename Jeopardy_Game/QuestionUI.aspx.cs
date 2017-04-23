@@ -21,7 +21,18 @@ namespace Jeopardy_Game
                 lblValue.Text = "$" + q.getValueForScoring().ToString();
                 lblQuestionText.Text = q.data.question_text.ToUpper();
 
-                string[] choices = randomizeAnswers(q);
+                if (q.data.image_file.Equals(""))
+                {
+                    divPicture.Visible = false;
+                }
+                else
+                {
+                    imgQuestion.ImageUrl = "~/Resources/question_media/process_flow.jpg";
+                    divPicture.Visible = true;
+                }
+
+                string[] choices = getAnswers(q);
+
                 displayAnswers(choices, q);
 
                 Session["value"] = q.getValueForScoring();
@@ -30,7 +41,7 @@ namespace Jeopardy_Game
             }
         }
 
-        private string[] randomizeAnswers(Question q)
+        private string[] getAnswers(Question q)
         {
             string[] answers = new string[4];
             answers[0] = q.data.correct_answer;
@@ -38,8 +49,16 @@ namespace Jeopardy_Game
             answers[2] = q.data.wrong_answer_2;
             answers[3] = q.data.wrong_answer_3;
 
-            Random rnd = new Random();
-            return answers.OrderBy(x => rnd.Next()).ToArray();
+
+            if (q.data.randomize_answers)
+            {
+                Random rnd = new Random();
+                return answers.OrderBy(x => rnd.Next()).ToArray();
+            }
+            else
+            {
+                return answers;
+            }
         }
 
         private void displayAnswers(string[] answers, Question q)

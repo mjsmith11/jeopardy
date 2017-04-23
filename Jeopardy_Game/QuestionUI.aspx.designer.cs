@@ -67,6 +67,24 @@ namespace Jeopardy_Game {
         protected global::System.Web.UI.WebControls.Label lblQuestionText;
         
         /// <summary>
+        /// divPicture control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPicture;
+        
+        /// <summary>
+        /// imgQuestion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgQuestion;
+        
+        /// <summary>
         /// divAnswers control.
         /// </summary>
         /// <remarks>
