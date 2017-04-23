@@ -9,6 +9,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <div hidden="hidden" id="divAudio" runat="server"></div>
     <div class="roundTransition">
     
         <asp:Label ID="lblHead" runat="server" Text="Round Complete" CssClass="pageHeading"></asp:Label>

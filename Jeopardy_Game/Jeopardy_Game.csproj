@@ -116,6 +116,7 @@
     <Content Include="Resources\images\jeopardy1.jpg" />
     <Content Include="Resources\images\jeopardy.jpg" />
     <Content Include="Resources\sounds\dailydouble.wav" />
+    <Content Include="Resources\sounds\end_of_rnd.wav" />
     <Content Include="Wager.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>

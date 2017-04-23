@@ -9,6 +9,20 @@ namespace Jeopardy_Game
 {
     public partial class EndOfRound : System.Web.UI.Page
     {
+        protected void Page_Init(object sender, EventArgs e)
+        {
+            if (Session["RoundTimeout"] != null)
+            { 
+                if (!IsPostBack)
+                {
+                    divAudio.InnerHtml = "<audio autoplay=\"autoplay\" src=\"./Resources/sounds/end_of_rnd.wav\"></audio>";
+                }
+                else
+                {
+                    divAudio.InnerHtml = "";
+                }
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             Gameboard gb = (Gameboard)Session["Gameboard"];
