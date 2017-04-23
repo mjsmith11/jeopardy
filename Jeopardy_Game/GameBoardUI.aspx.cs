@@ -1,5 +1,4 @@
-﻿#define DEBUG
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -20,16 +19,7 @@ namespace Jeopardy_Game
 
         protected void Page_Init(object sender, EventArgs e)
         {
-            Gameboard gb;
-            if (Session["Gameboard"]==null)
-            {
-                gb = new Gameboard();
-                Session["Gameboard"] = gb;
-            }
-            else
-            {
-                gb = (Gameboard)Session["Gameboard"];
-            }
+            Gameboard gb = (Gameboard)Session["Gameboard"];
             drawGameboard(gb);
             updateGameboard(gb);
                
@@ -82,7 +72,7 @@ namespace Jeopardy_Game
             List<JeopardyButton> buttons = new List<JeopardyButton>();
             TableRow Header = new TableRow();
             tblGameboard.Rows.Add(Header);
-            foreach (string category in gb.categories)
+            foreach (string category in gb.roundCategories)
             {
                 TableCell cell = new TableCell();
                 cell.ForeColor = System.Drawing.Color.White;
@@ -96,7 +86,7 @@ namespace Jeopardy_Game
             {
                 TableRow row = new TableRow();
                 tblGameboard.Rows.Add(row);
-                foreach (string category in gb.categories)
+                foreach (string category in gb.roundCategories)
                 {
                     Question q = gb.getQuestion(category, value);
                     TableCell cell = new TableCell();
@@ -122,7 +112,7 @@ namespace Jeopardy_Game
         private void updateGameInfo()
         {
             Gameboard gb = (Gameboard)Session["Gameboard"];
-            lblGameInfo.Text = "Round: " + gb.currentRound + "&nbsp;&nbsp;&nbsp;&nbsp;"+"Score: $" + gb.currentScore;
+            lblGameInfo.Text = "Player: "+Session["name"]+ "&nbsp;&nbsp;&nbsp;&nbsp;"+"Round: " + gb.currentRound + "&nbsp;&nbsp;&nbsp;&nbsp;"+"Score: $" + gb.currentScore;
         } 
     }
 }

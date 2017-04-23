@@ -23,6 +23,15 @@ namespace Jeopardy_Game
         public Question()
         { }
 
+        public Question(int value, QuestionData data)
+        {
+            this.value = value;
+            this.wager = 0;
+            this.wagerActive = false;
+            this.display = true;
+            this.data = data;
+        }
+
         /// <summary>
         /// Returns the wager if it is active or the value otherwise
         /// </summary>

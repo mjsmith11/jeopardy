@@ -1,9 +1,10 @@
-﻿#define DEBUG
+﻿#undef DEBUG
 using System;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
 using System.Web;
+using DatabaseConnection;
 
 namespace Jeopardy_Game
 {
@@ -12,7 +13,8 @@ namespace Jeopardy_Game
         public int currentRound { get; set; }
         public int currentScore { get; set; }
         private Hashtable questions;
-        public List<string> categories { get; }
+        public List<string> roundCategories { get; }
+        private List<string> gameCategories { get; set; }
         public List<int> values { get; }
 
         public Gameboard()
@@ -20,7 +22,7 @@ namespace Jeopardy_Game
             currentRound = 0;
             currentScore = 0;
             questions = new Hashtable();
-            categories = new List<string>();
+            roundCategories = new List<string>();
             values = new List<int>();
             for(int i=100; i<=500; i+=100)
             {
@@ -36,9 +38,9 @@ namespace Jeopardy_Game
         {
             string key = q.data.category + q.value;
             questions[key] = q;
-            if(!categories.Contains(q.data.category))
+            if(!roundCategories.Contains(q.data.category))
             {
-                categories.Add(q.data.category);
+                roundCategories.Add(q.data.category);
             }
         }
 
@@ -71,7 +73,59 @@ namespace Jeopardy_Game
         private void setupFirstRound()
         {
             currentRound = 1;
-            throw new NotImplementedException();
+            bool needPicture = false;
+            QuestionTable qt = new QuestionTable();
+            List<int> usedQuestions = new List<int>();
+
+            //select categories
+            gameCategories = qt.getCategories();
+
+            //randomize the order
+            Random rnd = new Random();
+            gameCategories = gameCategories.OrderBy(x => rnd.Next()).ToList();
+
+            //choose questions from first 6 categories
+            for(int i = 0; i<6; i++)
+            {
+                string currentCategory = gameCategories[i];
+                List<object> categoryQuestions = qt.getUnusedQuestionsByCategory(currentCategory);
+                //reset the questions if we do not have enough in this to populate this category
+                if (!checkForAllLevels(categoryQuestions))
+                {
+                    qt.resetQuestionUsage();
+                    categoryQuestions = qt.getUnusedQuestionsByCategory(currentCategory);
+                }
+
+                //choose a question for each level
+                for(int j=1; j<=5; j++)
+                {
+                    List<object> questionsAtLevel = (from q in categoryQuestions where (((QuestionData)q).level == j) select q).ToList();
+                    List<object> pictureQuestions = questionsAtLevel.Where(q => (!((QuestionData)q).image_file.Equals(""))).ToList();
+                    Question question;
+                    if(pictureQuestions.Count>0 && needPicture)
+                    {
+                        int index = rnd.Next(pictureQuestions.Count);
+                        question = new Question(100 * j, (QuestionData)pictureQuestions[index]);
+                        needPicture = false;
+                    }
+                    else
+                    {
+                        int index = rnd.Next(questionsAtLevel.Count);
+                        question = new Jeopardy_Game.Question(100 * j, (QuestionData)questionsAtLevel[index]);
+                    }
+                    this.addQuestion(question);
+                    usedQuestions.Add(question.data.question_id);
+                }
+            }
+
+            //mark questions used
+            qt.markQuestionsUsed(usedQuestions);
+
+            //choose a daily double
+            string ddCategory = roundCategories[rnd.Next(6)];
+            int ddValue = values[rnd.Next(6)];
+            getQuestion(ddCategory, ddValue).wagerActive = true;
+
         }
 
         private void setupSecondRound()
@@ -84,6 +138,18 @@ namespace Jeopardy_Game
         {
             currentRound = 3;
             throw new NotImplementedException();
+        }
+
+        private bool checkForAllLevels(List<object> questionList)
+        {
+            //check for each level
+            for(int i=1; i<=5; i++)
+            {
+                List<object> questionsAtLevel = (from q in questionList where (((QuestionData)q).level == i) select q).ToList();
+                if (questionsAtLevel.Count == 0)
+                    return false;
+            }
+            return true;
         }
 
         private void populateTestQuestions()
@@ -100,7 +166,7 @@ namespace Jeopardy_Game
                     this.addQuestion(q);
                 }
             }
-            getQuestion(categories[0], 200).wagerActive = true;
+            getQuestion(roundCategories[0], 200).wagerActive = true;
         }
     }
 }

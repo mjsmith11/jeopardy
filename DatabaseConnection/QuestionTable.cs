@@ -246,6 +246,7 @@ namespace DatabaseConnection
                     success = false;
                     errorMessage = "No rows were updated";
                 }
+                this.closeConnection();
             }
             else
             {
@@ -277,6 +278,7 @@ namespace DatabaseConnection
                     result = -1;
                     errorMessage = "Failed to get count";
                 }
+                this.closeConnection();
             }
             else
             {
@@ -305,6 +307,7 @@ namespace DatabaseConnection
                     success = false;
                     errorMessage = "No rows were updated";
                 }
+                this.closeConnection();
             }
             else
             {
@@ -331,6 +334,7 @@ namespace DatabaseConnection
                 {
                     categories.Add(dataReader["category"].ToString());
                 }
+                this.closeConnection();
 
             }
             else
@@ -366,6 +370,36 @@ namespace DatabaseConnection
             }
             return records;
         }
+        public bool markQuestionsUsed(List<int> ids)
+        {
+
+            bool success=true;            
+            if (this.openConnection())
+            {
+                foreach (int id in ids)
+                {
+                    string query = "UPDATE questions SET used=1 WHERE question_id=@a";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@a", id);
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if(rowsAffected==0)
+                    {
+                        success = false;
+                        errorMessage = "One or more updates failed";
+                    }
+                    
+                }
+                this.closeConnection();
+               
+            }
+            else
+            {
+                success = false;
+                errorMessage = "Failed to open database connection";
+            }
+            return success;
+        }
+        
 
         /// <summary>
         /// Parses a CSV file with no headings and the following columns in order: question_text, correct_answer, wrong_answer1, wrong_answer2,

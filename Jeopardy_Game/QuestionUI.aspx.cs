@@ -27,7 +27,7 @@ namespace Jeopardy_Game
                 }
                 else
                 {
-                    imgQuestion.ImageUrl = "~/Resources/question_media/process_flow.jpg";
+                    imgQuestion.ImageUrl = "~/Resources/question_media/"+q.data.image_file;
                     divPicture.Visible = true;
                 }
 

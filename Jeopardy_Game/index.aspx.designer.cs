@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace JeoparyGame {
+namespace Jeopardy_Game {
     
     
-    public partial class Name {
+    public partial class index {
         
         /// <summary>
         /// form1 control.

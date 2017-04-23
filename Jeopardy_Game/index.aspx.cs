@@ -5,9 +5,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace JeoparyGame
+namespace Jeopardy_Game
 {
-    public partial class Name : System.Web.UI.Page
+    public partial class index : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -26,8 +26,10 @@ namespace JeoparyGame
 
 
             Session["name"] = nametxtbox.Text;
-            //setup gameboard in session and redirect to game
+            Gameboard gb = new Gameboard();
+            gb.SetupNextRound();
+            Session["Gameboard"] = gb;
+            Response.Redirect("GameboardUI.aspx");
         }
-
     }
 }
