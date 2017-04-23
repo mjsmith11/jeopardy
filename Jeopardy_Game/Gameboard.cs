@@ -9,7 +9,7 @@ namespace Jeopardy_Game
 {
     public class Gameboard
     {
-        public int currentRound { get; }
+        public int currentRound { get; set; }
         public int currentScore { get; set; }
         private Hashtable questions;
         public List<string> categories { get; }
@@ -17,12 +17,12 @@ namespace Jeopardy_Game
 
         public Gameboard()
         {
-            currentRound = 1;
+            currentRound = 0;
             currentScore = 0;
             questions = new Hashtable();
             categories = new List<string>();
             values = new List<int>();
-            for(int i=200; i<=1000; i+=200)
+            for(int i=100; i<=500; i+=100)
             {
                 values.Add(i);
             }
@@ -56,6 +56,34 @@ namespace Jeopardy_Game
         public void decreaseScore(int amount)
         {
             currentScore -= amount;
+        }
+
+        public void SetupNextRound()
+        {
+            if (currentRound == 0)
+                setupFirstRound();
+            else if (currentRound == 1)
+                setupSecondRound();
+            else if (currentRound == 2)
+                setupFinalJeopardy();
+        }
+
+        private void setupFirstRound()
+        {
+            currentRound = 1;
+            throw new NotImplementedException();
+        }
+
+        private void setupSecondRound()
+        {
+            currentRound = 2;
+            throw new NotImplementedException();
+        }
+
+        private void setupFinalJeopardy()
+        {
+            currentRound = 3;
+            throw new NotImplementedException();
         }
 
         private void populateTestQuestions()

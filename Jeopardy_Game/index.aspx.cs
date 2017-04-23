@@ -14,23 +14,20 @@ namespace JeoparyGame
 
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
+        protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            lblError.Text = string.Empty;
             //this is your first validation
             if (string.IsNullOrWhiteSpace(nametxtbox.Text))
             {
-                Label3error.Text = "Name shouldn't be blank";
+                lblError.Text = "Name cannot be blank";
                 return;
             }
 
 
             Session["name"] = nametxtbox.Text;
-            Response.Redirect("CategoryPage.aspx");
+            //setup gameboard in session and redirect to game
         }
 
-        protected void nametxtbox_TextChanged(object sender, EventArgs e)
-        {
-            Label3error.Text = string.Empty;
-        }
     }
 }
