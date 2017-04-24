@@ -218,3 +218,41 @@
      font-weight:300;
      border:2px solid black
  }
+
+ .display
+ {
+     display:block;
+     margin:0 auto;
+     background-color:#0719B8;
+     width:75%;
+     border:solid 5px;
+     text-align:center;
+ }
+
+ #btnPlayAgain
+ {
+     background-color:lightgray;
+     color:black;
+     font-size:110%;
+     font-weight:300;
+     border:2px solid black;
+     width:200px;
+     height:50px;
+ }
+
+ table.highScores
+ {
+    margin-left:auto;
+    margin-right:auto;
+     color:white;
+     font-size:125%;
+     padding:10px;
+     font-weight:400;
+     text-shadow:1px 1px black;
+
+ }
+ table.highScores td
+ {
+     padding:2px 5px 2px 5px;
+
+ }

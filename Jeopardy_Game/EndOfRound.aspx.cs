@@ -38,6 +38,14 @@ namespace Jeopardy_Game
             {
                 Response.Redirect("GameBoardUI.aspx");
             }
+            else if(gb.currentRound==3 && gb.currentScore>0)
+            {
+                Response.Redirect("Wager.aspx");
+            }
+            else
+            {
+                Response.Redirect("EndGame.aspx");
+            }
         }
     }
 }

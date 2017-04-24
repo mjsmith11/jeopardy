@@ -9,6 +9,21 @@ namespace Jeopardy_Game
 {
     public partial class QuestionUI : System.Web.UI.Page
     {
+        protected void Page_Init(object sender, EventArgs e)
+        {
+            if (Session["Final"] != null)
+            {
+                //treat a daily double different than final jeopardy
+                if (!IsPostBack)
+                {
+                    divAudio.InnerHtml = "<audio autoplay=\"autoplay\" src=\"./Resources/sounds/Jeopardy-theme-song.mp3\"></audio>";
+                }
+                else
+                {
+                    divAudio.InnerHtml = "";
+                }
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -124,7 +139,15 @@ namespace Jeopardy_Game
                 gb.decreaseScore(value);
             }
             Session["Gameboard"] = gb;
-            Response.Redirect("GameBoardUI.aspx");
+            if (Session["Final"] == null)
+            {
+                Response.Redirect("GameBoardUI.aspx");
+            }
+            else
+            {
+                Session["Final"] = null;
+                Response.Redirect("EndGame.aspx");
+            }
         }
     }
 }

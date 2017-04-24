@@ -63,6 +63,10 @@ namespace Jeopardy_Game
                 setupSecondRound();
             else if (currentRound == 2)
                 setupFinalJeopardy();
+            else
+            {
+                currentRound = -1;
+            }
         }
 
         private void setupFirstRound()
@@ -191,9 +195,35 @@ namespace Jeopardy_Game
         private void setupFinalJeopardy()
         {
             currentRound = 3;
-            throw new NotImplementedException();
+            questions.Clear();
+            roundCategories.Clear();
+            values.Clear();
+
+            QuestionTable qt = new QuestionTable();
+            List<int> usedQuestions = new List<int>();
+            Random rnd = new Random();
+
+            string category = gameCategories[12]; //use the 13th category
+            List<object> categoryQuestions = qt.getUnusedQuestionsByCategory(category);
+
+            List<object> candidateQuestions = (from qu in categoryQuestions where (((QuestionData)qu).level >= 4) select qu).ToList();
+            if(candidateQuestions.Count() == 0)
+            {
+                qt.resetQuestionUsage();
+                categoryQuestions = qt.getUnusedQuestionsByCategory(category);
+                candidateQuestions = (from qu in categoryQuestions where (((QuestionData)qu).level >= 4) select qu).ToList();
+            }
+
+            QuestionData data = (QuestionData)candidateQuestions[rnd.Next(candidateQuestions.Count())];
+            Question q = new Question(0, data);
+            q.wagerActive = true;
+            questions["final"] = q;            
         }
 
+        public Question getFinalQuestion()
+        {
+            return (Question)questions["final"];
+        }
         private bool checkForAllLevels(List<object> questionList)
         {
             //check for each level

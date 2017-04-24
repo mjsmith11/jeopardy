@@ -9,6 +9,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <div hidden="hidden" id="divAudio" runat="server"></div>
     <div class="play_area">
         <div id="divHeadings" class="headings" runat="server">
             <asp:Label ID="lblCategory" runat="server" Text="" CssClass="question_heading"></asp:Label>

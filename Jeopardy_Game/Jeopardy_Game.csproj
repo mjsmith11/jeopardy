@@ -94,6 +94,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="EndGame.aspx" />
     <Content Include="EndOfRound.aspx" />
     <Content Include="Game.aspx" />
     <Content Include="GameBoardUI.aspx" />
@@ -113,14 +114,24 @@
   <ItemGroup>
     <Content Include="QuestionUI.aspx" />
     <Content Include="Resources\images\Daily_Double.png" />
+    <Content Include="Resources\images\Final_Jeopardy.png" />
     <Content Include="Resources\images\jeopardy1.jpg" />
     <Content Include="Resources\images\jeopardy.jpg" />
     <Content Include="Resources\sounds\dailydouble.wav" />
     <Content Include="Resources\sounds\end_of_rnd.wav" />
+    <Content Include="Resources\sounds\final_cat.wav" />
+    <Content Include="Resources\sounds\Jeopardy-theme-song.mp3" />
     <Content Include="Wager.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EndGame.aspx.cs">
+      <DependentUpon>EndGame.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EndGame.aspx.designer.cs">
+      <DependentUpon>EndGame.aspx</DependentUpon>
+    </Compile>
     <Compile Include="EndOfRound.aspx.cs">
       <DependentUpon>EndOfRound.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
