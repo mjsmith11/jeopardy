@@ -34,6 +34,8 @@
             <br />
             <asp:Button ID="btnAnswer4" runat="server" Text="" OnClick="btnAnswer4_Click" CssClass="answer_choice"/>
         </div>
+        <br />
+        <asp:Button ID="btnContinue" runat="server" Text="Continue" CssClass="bigBtn" OnClick="btnContinue_Click" /><br /><br />
     </div>
     </form>
 </body>

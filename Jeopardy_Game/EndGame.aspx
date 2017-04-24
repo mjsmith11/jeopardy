@@ -14,8 +14,8 @@
         <asp:Label ID="lblScore" runat="server" Text="" CssClass="prompt"></asp:Label><br /><br /><br />
         <asp:Label ID="lblHighScores" runat="server" Text="High Scores" CssClass="prompt"></asp:Label><br />
         <div id="divHighScoreArea" runat="server"></div>
-        <asp:Button ID="btnPlayAgain" runat="server" Text="Play Again?" OnClick="btnPlayAgain_Click" /><br /><br />
-    </div>
+        <asp:Button ID="btnPlayAgain" runat="server" Text="Play Again?" CssClass="bigBtn" OnClick="btnPlayAgain_Click" /><br /><br />
+    </div> 
     </form>
 </body>
 </html>

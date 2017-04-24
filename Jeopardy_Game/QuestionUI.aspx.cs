@@ -23,6 +23,7 @@ namespace Jeopardy_Game
                     divAudio.InnerHtml = "";
                 }
             }
+            btnContinue.Visible = false;
         }
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -139,6 +140,41 @@ namespace Jeopardy_Game
                 gb.decreaseScore(value);
             }
             Session["Gameboard"] = gb;
+            showCorrect(correctButtonNum);
+            btnContinue.Visible = true;
+        }
+        private void showCorrect(int correctButtonNum)
+        {
+            Button b=null;
+            switch (correctButtonNum)
+            {
+                case 1:
+                    {
+                        b = btnAnswer1;
+                        break;
+                    }
+                case 2:
+                    {
+                        b = btnAnswer2;
+                        break;
+                    }
+                case 3:
+                    {
+                        b = btnAnswer3;
+                        break;
+                    }
+                case 4:
+                    {
+                        b = btnAnswer4;
+                        break;
+                    }
+            }
+            b.BackColor = System.Drawing.Color.Green;
+
+        }
+
+        protected void btnContinue_Click(object sender, EventArgs e)
+        {
             if (Session["Final"] == null)
             {
                 Response.Redirect("GameBoardUI.aspx");
