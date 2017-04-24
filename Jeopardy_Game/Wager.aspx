@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <link rel="stylesheet" type="text/css" href="jeopardy.css"/>
-    <title></title>
+    <title>Software Engineering Jeopardy</title>
     
 </head>
 <body>

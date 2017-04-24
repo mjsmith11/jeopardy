@@ -96,7 +96,6 @@
   <ItemGroup>
     <Content Include="EndGame.aspx" />
     <Content Include="EndOfRound.aspx" />
-    <Content Include="Game.aspx" />
     <Content Include="GameBoardUI.aspx" />
     <Content Include="index.aspx" />
     <Content Include="jeopardy.css" />
@@ -138,13 +137,6 @@
     </Compile>
     <Compile Include="EndOfRound.aspx.designer.cs">
       <DependentUpon>EndOfRound.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Game.aspx.cs">
-      <DependentUpon>Game.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Game.aspx.designer.cs">
-      <DependentUpon>Game.aspx</DependentUpon>
     </Compile>
     <Compile Include="Gameboard.cs" />
     <Compile Include="GameBoardCell.cs" />
