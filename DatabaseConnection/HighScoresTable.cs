@@ -133,11 +133,11 @@ namespace DatabaseConnection
         /// reads the entire high score table
         /// </summary>
         /// <returns>List of HighScoreData objects. Each object in the list is a record from the table. This could be
-        /// an empty list</returns>
+        /// an empty list sorted in descending order by score</returns>
         public override List<object> readAll()
         {
             List<object> records = new List<object>();
-            string qry = "SELECT * FROM high_scores";
+            string qry = "SELECT * FROM high_scores ORDER BY high_score DESC";
             if (this.openConnection())
             {
                 MySqlCommand cmd = new MySqlCommand(qry, connection);
