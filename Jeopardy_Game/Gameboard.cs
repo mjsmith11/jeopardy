@@ -178,7 +178,7 @@ namespace Jeopardy_Game
 
             //choose a daily double
             string ddCategory = roundCategories[rnd.Next(6)];
-            int ddValue = values[rnd.Next(6)];
+            int ddValue = values[rnd.Next(5)];
             getQuestion(ddCategory, ddValue).wagerActive = true;
 
             //choose a second daily double that is different than the first one
