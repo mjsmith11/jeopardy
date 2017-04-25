@@ -122,7 +122,7 @@ namespace Jeopardy_Game
 
             //choose a daily double
             string ddCategory = roundCategories[rnd.Next(6)];
-            int ddValue = values[rnd.Next(6)];
+            int ddValue = values[rnd.Next(5)];
             getQuestion(ddCategory, ddValue).wagerActive = true;
 
         }
@@ -187,7 +187,7 @@ namespace Jeopardy_Game
             while((dd2Category.Equals(ddCategory))&&(dd2Value==ddValue))
             {
                 dd2Category = roundCategories[rnd.Next(6)];
-                dd2Value = values[rnd.Next(6)];
+                dd2Value = values[rnd.Next(5)];
             }
             getQuestion(dd2Category, dd2Value).wagerActive = true;
         }

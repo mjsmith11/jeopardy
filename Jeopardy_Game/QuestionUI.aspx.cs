@@ -22,6 +22,12 @@ namespace Jeopardy_Game
                 {
                     divAudio.InnerHtml = "";
                 }
+                if(!IsPostBack)
+                    Session["AnswerTime"] = 35;
+            }
+            else if(!IsPostBack)
+            {
+                Session["AnswerTime"] = 20;
             }
             btnContinue.Visible = false;
         }
@@ -59,6 +65,8 @@ namespace Jeopardy_Game
                 btnAnswer2.Enabled = true;
                 btnAnswer3.Enabled = true;
                 btnAnswer4.Enabled = true;
+
+                lblTime.Text = "Remaining Time: " + Session["AnswerTime"] + " Seconds";
             }
         }
 
@@ -129,6 +137,7 @@ namespace Jeopardy_Game
 
         private void processAnswerChoice(int buttonNum)
         {
+            Timer1.Enabled = false;
             int value = (int)Session["value"];
             Session["value"] = null;
 
@@ -147,13 +156,13 @@ namespace Jeopardy_Game
             Session["Gameboard"] = gb;
             showCorrect(correctButtonNum);
             btnContinue.Visible = true;
+        }
+        private void showCorrect(int correctButtonNum)
+        {
             btnAnswer1.Enabled = false;
             btnAnswer2.Enabled = false;
             btnAnswer3.Enabled = false;
             btnAnswer4.Enabled = false;
-        }
-        private void showCorrect(int correctButtonNum)
-        {
             Button b=null;
             switch (correctButtonNum)
             {
@@ -192,6 +201,24 @@ namespace Jeopardy_Game
             {
                 Session["Final"] = null;
                 Response.Redirect("EndGame.aspx");
+            }
+        }
+
+        protected void Timer1_Tick(object sender, EventArgs e)
+        {
+            int timeLeft = Int32.Parse(Session["AnswerTime"].ToString());
+            if(timeLeft > 0 )
+            {
+                timeLeft--;
+                lblTime.Text = "Remaining Time: " + timeLeft + " Seconds";
+                Session["AnswerTime"] = timeLeft;
+
+                if(timeLeft==0)
+                {
+                    Session["AnswerTime"] = null;
+                    processAnswerChoice(0); //0 will never be correct                    
+                }
+
             }
         }
     }

@@ -9,6 +9,8 @@
 </head>
 <body>
     <form id="form1" runat="server">
+                    <asp:ScriptManager ID="ScriptManager1" runat="server">
+            </asp:ScriptManager>
         <div hidden="hidden" id="divAudio" runat="server"></div>
     <div class="play_area">
         <div id="divHeadings" class="headings" runat="server">
@@ -25,6 +27,8 @@
                 <br />
             </div>
         </div>
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>
         <div id="divAnswers" class="answer_choices" runat="server">
             <asp:Button ID="btnAnswer1" runat="server" Text="" OnClick="btnAnswer1_Click" CssClass="answer_choice"/>
             <br />
@@ -35,7 +39,17 @@
             <asp:Button ID="btnAnswer4" runat="server" Text="" OnClick="btnAnswer4_Click" CssClass="answer_choice"/>
         </div>
         <br />
-        <asp:Button ID="btnContinue" runat="server" Text="Continue" CssClass="bigBtn" OnClick="btnContinue_Click" /><br /><br />
+        <asp:Button ID="btnContinue" runat="server" Text="Continue" CssClass="bigBtn" OnClick="btnContinue_Click" /><br />
+            <asp:Label ID="lblTime" runat="server" Text="" CssClass="prompt"></asp:Label>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+         <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+            <ContentTemplate>
+                <asp:Timer ID="Timer1" runat="server" Interval="1000" OnTick="Timer1_Tick"></asp:Timer>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+        
+        <br />
     </div>
     </form>
 </body>
