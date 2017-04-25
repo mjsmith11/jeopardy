@@ -54,6 +54,11 @@ namespace Jeopardy_Game
                 Session["value"] = q.getValueForScoring();
 
                 Session["Question"] = null; //remove the session variable so this only loads once each time the gameboard passes in a question.
+
+                btnAnswer1.Enabled = true;
+                btnAnswer2.Enabled = true;
+                btnAnswer3.Enabled = true;
+                btnAnswer4.Enabled = true;
             }
         }
 
@@ -142,6 +147,10 @@ namespace Jeopardy_Game
             Session["Gameboard"] = gb;
             showCorrect(correctButtonNum);
             btnContinue.Visible = true;
+            btnAnswer1.Enabled = false;
+            btnAnswer2.Enabled = false;
+            btnAnswer3.Enabled = false;
+            btnAnswer4.Enabled = false;
         }
         private void showCorrect(int correctButtonNum)
         {
