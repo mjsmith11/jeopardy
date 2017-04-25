@@ -67,6 +67,7 @@ namespace Jeopardy_Game
                 btnAnswer4.Enabled = true;
 
                 lblTime.Text = "Remaining Time: " + Session["AnswerTime"] + " Seconds";
+                Timer2.Enabled = false;
             }
         }
 
@@ -216,10 +217,19 @@ namespace Jeopardy_Game
                 if(timeLeft==0)
                 {
                     Session["AnswerTime"] = null;
-                    processAnswerChoice(0); //0 will never be correct                    
+                    processAnswerChoice(0); //0 will never be correct 
+
+                    //the tick of this timer after 5ms triggers the update of the answer buttons and continue button
+                    Timer2.Enabled = true;
                 }
 
             }
+        }
+
+        protected void Timer2_Tick(object sender, EventArgs e)
+        {
+            Timer2.Enabled = false;
+            //this only allows this to tick once
         }
     }
 }
