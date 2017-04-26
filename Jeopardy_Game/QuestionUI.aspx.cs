@@ -23,7 +23,7 @@ namespace Jeopardy_Game
                     divAudio.InnerHtml = "";
                 }
                 if(!IsPostBack)
-                    Session["AnswerTime"] = 35;
+                    Session["AnswerTime"] = 30;
             }
             else if(!IsPostBack)
             {
@@ -218,7 +218,10 @@ namespace Jeopardy_Game
                 {
                     Session["AnswerTime"] = null;
                     processAnswerChoice(0); //0 will never be correct 
-
+                    if (Session["Final"] == null)
+                    {
+                        divTimeoutAudio.InnerHtml = "<audio autoplay=\"autoplay\" src=\"./Resources/sounds/qtime.wav\"></audio>";
+                    }
                     //the tick of this timer after 5ms triggers the update of the answer buttons and continue button
                     Timer2.Enabled = true;
                 }

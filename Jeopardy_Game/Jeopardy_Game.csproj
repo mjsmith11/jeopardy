@@ -121,6 +121,7 @@
     <Content Include="Resources\sounds\end_of_rnd.wav" />
     <Content Include="Resources\sounds\final_cat.wav" />
     <Content Include="Resources\sounds\Jeopardy-theme-song.mp3" />
+    <Content Include="Resources\sounds\qtime.wav" />
     <Content Include="Wager.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>

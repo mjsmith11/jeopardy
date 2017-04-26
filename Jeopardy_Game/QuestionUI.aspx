@@ -48,6 +48,7 @@
         <asp:UpdatePanel ID="UpdatePanel3" runat="server">
             <ContentTemplate>
                 <asp:Label ID="lblTime" runat="server" Text="" CssClass="prompt"></asp:Label>
+                <div id="divTimeoutAudio" hidden="hidden" runat="server"></div>
             </ContentTemplate>
         </asp:UpdatePanel>
          <asp:UpdatePanel ID="UpdatePanel2" runat="server">
