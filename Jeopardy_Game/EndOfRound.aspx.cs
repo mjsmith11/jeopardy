@@ -16,6 +16,7 @@ namespace Jeopardy_Game
                 if (!IsPostBack)
                 {
                     divAudio.InnerHtml = "<audio autoplay=\"autoplay\" src=\"./Resources/sounds/end_of_rnd.wav\"></audio>";
+                    Session["RoundTimeout"] = null;
                 }
                 else
                 {

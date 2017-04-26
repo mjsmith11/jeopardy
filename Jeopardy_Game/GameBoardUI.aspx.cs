@@ -22,8 +22,14 @@ namespace Jeopardy_Game
             Gameboard gb = (Gameboard)Session["Gameboard"];
             drawGameboard(gb);
             updateGameboard(gb);
-               
-            
+           
+            if (Session["RoundEnd"]==null)
+            {
+                DateTime now = DateTime.Now;
+                Session["RoundEnd"] = now.AddMinutes(15);
+            }
+            updateRoundInfo();
+
         }
         
 
@@ -32,7 +38,6 @@ namespace Jeopardy_Game
             JeopardyButton btn = (JeopardyButton)sender;
             Gameboard gb = (Gameboard)Session["Gameboard"];
             gb.getQuestion(btn.category, btn.dollarValue).display = false;
-            //updateGameboard(gb);
             Session["Gameboard"] = gb;
             Question q = gb.getQuestion(btn.category, btn.dollarValue);
             Session["Question"] = q;
@@ -118,7 +123,46 @@ namespace Jeopardy_Game
         private void updateGameInfo()
         {
             Gameboard gb = (Gameboard)Session["Gameboard"];
-            lblGameInfo.Text = "Player: "+Session["name"]+ "&nbsp;&nbsp;&nbsp;&nbsp;"+"Round: " + gb.currentRound + "&nbsp;&nbsp;&nbsp;&nbsp;"+"Score: $" + gb.currentScore;
-        } 
+            lblGameInfo.Text = "Player: "+Session["name"]+ "&nbsp;&nbsp;&nbsp;&nbsp;"+"Score: $" + gb.currentScore;
+        }
+
+        protected void Timer1_Tick(object sender, EventArgs e)
+        {
+            Gameboard gb = (Gameboard)Session["Gameboard"];
+            DateTime end = (DateTime)Session["RoundEnd"];
+            if(end.CompareTo(DateTime.Now)>0)
+            {
+                //time is remaining
+                updateRoundInfo();
+
+            }
+            else
+            {
+                Session["RoundTimeout"] = "";
+                Session["RoundEnd"]=null;
+                Response.Redirect("EndOfRound.aspx");
+            }
+        }
+
+        private void updateRoundInfo()
+        {
+            Gameboard gb = (Gameboard)Session["Gameboard"];
+            DateTime end = (DateTime)Session["RoundEnd"];
+            TimeSpan remaining = end.Subtract(DateTime.Now);
+            string dispSeconds;
+            if (remaining.Minutes < 0 || remaining.Seconds < 0)
+            {
+                remaining = new TimeSpan(0, 0, 0);//don't display negative
+            }
+            if (remaining.Seconds>9)
+            {
+                dispSeconds = remaining.Seconds.ToString();
+            }
+            else
+            {
+                dispSeconds = "0" + remaining.Seconds.ToString();
+            }
+            lblRoundInfo.Text = "Round: " + gb.currentRound + "&nbsp;&nbsp;&nbsp;&nbsp;" + "Remaining: " + remaining.Minutes + ":" + dispSeconds;
+        }
     }
 }
