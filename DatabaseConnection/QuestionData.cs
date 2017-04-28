@@ -8,17 +8,53 @@ namespace DatabaseConnection
 {
     public class QuestionData
     {
+        /// <summary>
+        /// unique numeric id of the question
+        /// </summary>
         public int question_id { get; set; }
+        /// <summary>
+        /// text stating the question
+        /// </summary>
         public string question_text { get; set; }
+        /// <summary>
+        /// correct answer to the question
+        /// </summary>
         public string correct_answer { get; set; }
+        /// <summary>
+        /// first incorrect answer to the question
+        /// </summary>
         public string wrong_answer_1 { get; set; }
+        /// <summary>
+        /// second wrong answer to the question
+        /// </summary>
         public string wrong_answer_2 { get; set; }
+        /// <summary>
+        /// third wrong answer to the question
+        /// </summary>
         public string wrong_answer_3 { get; set; }
+        /// <summary>
+        /// category in which the question should appear
+        /// </summary>
         public string category { get; set; }
+        /// <summary>
+        /// difficulty of the question 1-5
+        /// </summary>
         public int level { get; set; }
+        /// <summary>
+        /// location in book, slides, etc where question was obtained
+        /// </summary>
         public string reference { get; set; }
+        /// <summary>
+        /// true if the question has been used in a recent game and should not be used for the next game. False if the question can be used for the next game
+        /// </summary>
         public bool used { get; set; }
+        /// <summary>
+        /// name of the image file for picture questions, "" for non picture questions
+        /// </summary>
         public string image_file { get; set; }
+        /// <summary>
+        /// true if it is safe to randomize the order of the question's answers. false if not
+        /// </summary>
         public bool randomize_answers { get; set; }
 
         /// <summary>

@@ -14,7 +14,7 @@ namespace DatabaseConnection
     public abstract class DBTable
     {
         /// <summary>
-        /// singleton mysql connection
+        /// singleton connection to mysql database
         /// </summary>
         protected static MySqlConnection connection;
 
