@@ -55,29 +55,31 @@ namespace Jeopardy_Game
             currentScore -= amount;
         }
 
-        public void SetupNextRound()
+        public bool SetupNextRound()
         {
             if (currentRound == 0)
-                setupFirstRound();
+                return setupFirstRound();
             else if (currentRound == 1)
-                setupSecondRound();
+                return setupSecondRound();
             else if (currentRound == 2)
-                setupFinalJeopardy();
+                return setupFinalJeopardy();
             else
             {
                 currentRound = -1;
+                return false;
             }
         }
 
-        private void setupFirstRound()
+        private bool setupFirstRound()
         {
             currentRound = 1;
             bool needPicture = false;
-            QuestionTable qt = new QuestionTable();
             List<int> usedQuestions = new List<int>();
 
             //select categories
-            gameCategories = qt.getCategories();
+            gameCategories = getCategories();
+            if (gameCategories == null || gameCategories.Count < 13)
+                return false;
 
             //randomize the order
             Random rnd = new Random();
@@ -87,12 +89,18 @@ namespace Jeopardy_Game
             for(int i = 0; i<6; i++)
             {
                 string currentCategory = gameCategories[i];
-                List<object> categoryQuestions = qt.getUnusedQuestionsByCategory(currentCategory);
+                List<object> categoryQuestions = getUnusedQuestionsByCategory(currentCategory);
+                if (categoryQuestions == null)
+                    return false;
                 //reset the questions if we do not have enough in this to populate this category
                 if (!checkForAllLevels(categoryQuestions))
                 {
-                    qt.resetQuestionUsage();
-                    categoryQuestions = qt.getUnusedQuestionsByCategory(currentCategory);
+                    bool result = resetQuestionUsage();
+                    if (result == false)
+                        return false;
+                    categoryQuestions = getUnusedQuestionsByCategory(currentCategory);
+                    if (categoryQuestions == null)
+                        return false;
                 }
 
                 //choose a question for each level
@@ -118,16 +126,21 @@ namespace Jeopardy_Game
             }
 
             //mark questions used
-            qt.markQuestionsUsed(usedQuestions);
+            bool usedResult = updateUsedQuestions(usedQuestions);
+            if (usedResult == false)
+                return false;
+
 
             //choose a daily double
             string ddCategory = roundCategories[rnd.Next(6)];
             int ddValue = values[rnd.Next(5)];
             getQuestion(ddCategory, ddValue).wagerActive = true;
 
+            return true;
+
         }
 
-        private void setupSecondRound()
+        private bool setupSecondRound()
         {
             currentRound = 2;
             questions.Clear();
@@ -135,7 +148,6 @@ namespace Jeopardy_Game
             values = (from v in values select 2 * v).ToList();
 
             bool needPicture = false;
-            QuestionTable qt = new QuestionTable();
             List<int> usedQuestions = new List<int>();
             Random rnd = new Random();
 
@@ -143,12 +155,18 @@ namespace Jeopardy_Game
             for (int i = 6; i < 12; i++)
             {
                 string currentCategory = gameCategories[i];
-                List<object> categoryQuestions = qt.getUnusedQuestionsByCategory(currentCategory);
+                List<object> categoryQuestions = getUnusedQuestionsByCategory(currentCategory);
+                if (categoryQuestions == null)
+                    return false;
                 //reset the questions if we do not have enough in this to populate this category
                 if (!checkForAllLevels(categoryQuestions))
                 {
-                    qt.resetQuestionUsage();
-                    categoryQuestions = qt.getUnusedQuestionsByCategory(currentCategory);
+                    bool result = resetQuestionUsage();
+                    if (result == false)
+                        return false;
+                    categoryQuestions = getUnusedQuestionsByCategory(currentCategory);
+                    if (categoryQuestions == null)
+                        return false;
                 }
 
                 //choose a question for each level
@@ -174,7 +192,9 @@ namespace Jeopardy_Game
             }
 
             //mark questions used
-            qt.markQuestionsUsed(usedQuestions);
+            bool usedResult = updateUsedQuestions(usedQuestions);
+            if (usedResult == false)
+                return false;
 
             //choose a daily double
             string ddCategory = roundCategories[rnd.Next(6)];
@@ -190,34 +210,49 @@ namespace Jeopardy_Game
                 dd2Value = values[rnd.Next(5)];
             }
             getQuestion(dd2Category, dd2Value).wagerActive = true;
+
+            return true;
         }
 
-        private void setupFinalJeopardy()
+        private bool setupFinalJeopardy()
         {
             currentRound = 3;
             questions.Clear();
             roundCategories.Clear();
             values.Clear();
 
-            QuestionTable qt = new QuestionTable();
             List<int> usedQuestions = new List<int>();
             Random rnd = new Random();
 
             string category = gameCategories[12]; //use the 13th category
-            List<object> categoryQuestions = qt.getUnusedQuestionsByCategory(category);
+            List<object> categoryQuestions = getUnusedQuestionsByCategory(category);
+            if (categoryQuestions == null)
+                return false;
 
             List<object> candidateQuestions = (from qu in categoryQuestions where (((QuestionData)qu).level >= 4) select qu).ToList();
             if(candidateQuestions.Count() == 0)
             {
-                qt.resetQuestionUsage();
-                categoryQuestions = qt.getUnusedQuestionsByCategory(category);
+                bool result = resetQuestionUsage();
+                if (result == false)
+                    return false;
+                categoryQuestions = getUnusedQuestionsByCategory(category);
+                if (categoryQuestions == null)
+                    return false;
                 candidateQuestions = (from qu in categoryQuestions where (((QuestionData)qu).level >= 4) select qu).ToList();
             }
 
             QuestionData data = (QuestionData)candidateQuestions[rnd.Next(candidateQuestions.Count())];
             Question q = new Question(0, data);
             q.wagerActive = true;
-            questions["final"] = q;            
+
+            List<int> usedQuestion = new List<int>();
+            usedQuestion.Add(q.data.question_id);
+            bool usedResult = updateUsedQuestions(usedQuestion);
+            if (usedResult == false)
+                return false;
+            questions["final"] = q;
+
+            return true;           
         }
 
         public Question getFinalQuestion()
@@ -236,21 +271,64 @@ namespace Jeopardy_Game
             return true;
         }
 
-        private void populateTestQuestions()
+        private List<string> getCategories()
         {
-            for(int i=0; i<6; i++)
+            QuestionTable qt = new QuestionTable();
+            List<string> result = null;
+            int attempts = 0;
+            while(result == null)
             {
-                for(int j=200; j<=1000; j+=200)
-                {
-                    Question q = new Question();
-                    q.display = true;
-                    q.value = j;
-                    q.wagerActive = false;
-                    q.data = new DatabaseConnection.QuestionData("?????", "Right", "W1", "W2", "W3", "Category #" + i, j / 100, "ref", false, "",true);
-                    this.addQuestion(q);
-                }
+                result = qt.getCategories();
+                attempts++;
+                if (attempts >= 3)
+                    break;
             }
-            getQuestion(roundCategories[0], 200).wagerActive = true;
+            return result;
+        }
+
+        private List<object> getUnusedQuestionsByCategory(string category)
+        {
+            QuestionTable qt = new QuestionTable();
+            List<object> result = null;
+            int attempts = 0;
+            while (result == null)
+            {
+                result = qt.getUnusedQuestionsByCategory(category);
+                attempts++;
+                if (attempts >= 3)
+                    break;
+            }
+            return result;
+        }
+
+        private bool resetQuestionUsage()
+        {
+            QuestionTable qt = new QuestionTable();
+            bool result = false;
+            int attempts = 0;
+            while (result == false)
+            {
+                result = qt.resetQuestionUsage();
+                attempts++;
+                if (attempts >= 3)
+                    break;
+            }
+            return result;
+        }
+
+        private bool updateUsedQuestions(List<int> ids)
+        {
+            QuestionTable qt = new QuestionTable();
+            bool result = false;
+            int attempts = 0;
+            while (result == false)
+            {
+                result = qt.markQuestionsUsed(ids);
+                attempts++;
+                if (attempts >= 3)
+                    break;
+            }
+            return result;
         }
     }
 }

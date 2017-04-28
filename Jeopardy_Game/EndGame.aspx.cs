@@ -16,10 +16,11 @@ namespace Jeopardy_Game
             {
                 Random r = new Random();
                 Gameboard gb = (Gameboard)Session["Gameboard"];
-                HighScoresTable hst = new HighScoresTable();
                 HighScoreData hsd = new HighScoreData(gb.currentScore, Session["name"].ToString(), r.Next(100000));
-                hst.updateIfQualified(hsd);
-                List<object> scores = hst.readAll();
+                updateHighScores(hsd);
+                List<object> scores = getHighScores();
+                if (scores == null)
+                    Response.Redirect("Error.aspx");
                 displayHighScores(scores);
                 lblScore.Text = "Your Score: $" + gb.currentScore;
                 Session.RemoveAll();
@@ -47,6 +48,50 @@ namespace Jeopardy_Game
             html += "</table>";
 
             divHighScoreArea.InnerHtml = html;
+        }
+
+        /// <summary>
+        /// Try up to 3 times to get high scores
+        /// </summary>
+        /// <returns>List of all high scores or null if all three attempts fail</returns>
+        private List<object> getHighScores()
+        {
+            HighScoresTable hst = new HighScoresTable();
+            hst.errorMessage = "";
+            bool hadSuccess = false;
+            int attempts = 0;
+            
+            while(!hadSuccess)
+            {
+                List<object> result = hst.readAll();
+                if(hst.errorMessage.Equals(""))
+                {
+                    return result;
+                }
+                attempts++;
+                if (attempts >= 3)
+                    break;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Make up to 3 times to executeUpdateIfQualified and quietly return if all 3 attempts fail
+        /// </summary>
+        /// <param name="hsd">High Score Data</param>
+        private void updateHighScores(HighScoreData hsd)
+        {
+            HighScoresTable hst = new HighScoresTable();
+            bool success = hst.updateIfQualified(hsd);
+            int attempts = 1;
+            while(!success)
+            {
+                success = hst.updateIfQualified(hsd);
+
+                attempts++;
+                if (attempts >= 3)
+                    break;
+            }
         }
     }
 }

@@ -5,7 +5,6 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Collections;
-using DatabaseConnection;
 
 namespace Jeopardy_Game
 {

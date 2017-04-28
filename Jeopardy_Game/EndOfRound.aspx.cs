@@ -33,19 +33,26 @@ namespace Jeopardy_Game
         protected void btnContinue_Click(object sender, EventArgs e)
         {
             Gameboard gb = (Gameboard)Session["Gameboard"];
-            gb.SetupNextRound();
+            bool result = gb.SetupNextRound();
             Session["Gameboard"] = gb;
-            if(gb.currentRound==2)
+            if (result)
             {
-                Response.Redirect("GameBoardUI.aspx");
-            }
-            else if(gb.currentRound==3 && gb.currentScore>0)
-            {
-                Response.Redirect("Wager.aspx");
+                if (gb.currentRound == 2)
+                {
+                    Response.Redirect("GameBoardUI.aspx");
+                }
+                else if (gb.currentRound == 3 && gb.currentScore > 0)
+                {
+                    Response.Redirect("Wager.aspx");
+                }
+                else
+                {
+                    Response.Redirect("EndGame.aspx");
+                }
             }
             else
             {
-                Response.Redirect("EndGame.aspx");
+                Response.Redirect("Error.aspx");
             }
         }
     }

@@ -27,9 +27,13 @@ namespace Jeopardy_Game
 
             Session["name"] = nametxtbox.Text;
             Gameboard gb = new Gameboard();
-            gb.SetupNextRound();
+            bool result = gb.SetupNextRound();
             Session["Gameboard"] = gb;
-            Response.Redirect("GameboardUI.aspx");
+            if (result)
+                Response.Redirect("GameboardUI.aspx");
+            else
+                Response.Redirect("Error.aspx");
+
         }
     }
 }
