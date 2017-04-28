@@ -12,11 +12,14 @@ namespace Jeopardy_Game
     {
         protected void Page_Init(object sender, EventArgs e)
         {
+            sessionCheck();
             Gameboard gb = (Gameboard)Session["Gameboard"];
             Question q;
             
             if (gb.currentRound <= 2)
             {
+                if (Session["Question"] == null)
+                    Response.Redirect("Error.aspx");
                 //treat a daily double different than final jeopardy
                 if (!IsPostBack)
                 {
@@ -172,7 +175,12 @@ namespace Jeopardy_Game
             q.wager = value;
             Session["Question"] = q;
         }
+        private void sessionCheck()
+        {
+            if (Session["Gameboard"] == null)
+                Response.Redirect("Error.aspx");
 
+        }
 
     }
 }

@@ -26,6 +26,7 @@ namespace Jeopardy_Game
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            sessionCheck();
             Gameboard gb = (Gameboard)Session["Gameboard"];
             lblScore.Text = Session["name"].ToString()+": $" + gb.currentScore;
         }
@@ -54,6 +55,15 @@ namespace Jeopardy_Game
             {
                 Response.Redirect("Error.aspx");
             }
+        }
+
+        private void sessionCheck()
+        {
+            if (Session["name"] == null)
+                Response.Redirect("Error.aspx");
+            if (Session["Gameboard"] == null)
+                Response.Redirect("Error.aspx");
+
         }
     }
 }

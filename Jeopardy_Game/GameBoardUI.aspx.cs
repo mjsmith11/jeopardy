@@ -12,12 +12,11 @@ namespace Jeopardy_Game
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Gameboard gb = (Gameboard)Session["Gameboard"];
-            //updateGameboard(gb);
         }
 
         protected void Page_Init(object sender, EventArgs e)
         {
+            sessionCheck();
             Gameboard gb = (Gameboard)Session["Gameboard"];
             drawGameboard(gb);
             updateGameboard(gb);
@@ -25,7 +24,7 @@ namespace Jeopardy_Game
             if (Session["RoundEnd"]==null)
             {
                 DateTime now = DateTime.Now;
-                Session["RoundEnd"] = now.AddMinutes(15);
+                Session["RoundEnd"] = now.AddMinutes(2);
             }
             updateRoundInfo();
 
@@ -162,6 +161,15 @@ namespace Jeopardy_Game
                 dispSeconds = "0" + remaining.Seconds.ToString();
             }
             lblRoundInfo.Text = "Round: " + gb.currentRound + "&nbsp;&nbsp;&nbsp;&nbsp;" + "Remaining: " + remaining.Minutes + ":" + dispSeconds;
+        }
+
+        private void sessionCheck()
+        {
+            if (Session["name"] == null)
+                Response.Redirect("Error.aspx");
+            if (Session["Gameboard"] == null)
+                Response.Redirect("Error.aspx");
+
         }
     }
 }

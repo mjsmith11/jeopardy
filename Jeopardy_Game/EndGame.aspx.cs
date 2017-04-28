@@ -14,6 +14,7 @@ namespace Jeopardy_Game
         {
             if (!IsPostBack)
             {
+                sessionCheck();
                 Random r = new Random();
                 Gameboard gb = (Gameboard)Session["Gameboard"];
                 HighScoreData hsd = new HighScoreData(gb.currentScore, Session["name"].ToString(), r.Next(100000));
@@ -92,6 +93,15 @@ namespace Jeopardy_Game
                 if (attempts >= 3)
                     break;
             }
+        }
+
+        private void sessionCheck()
+        {
+            if (Session["name"] == null)
+                Response.Redirect("Error.aspx");
+            if (Session["Gameboard"] == null)
+                Response.Redirect("Error.aspx");
+
         }
     }
 }

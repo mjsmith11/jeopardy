@@ -11,6 +11,11 @@ namespace Jeopardy_Game
     {
         protected void Page_Init(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                //the check will fail on AJAX postbacks and that's ok
+                sessionCheck();
+            }
             if (Session["Final"] != null)
             {
                 //treat a daily double different than final jeopardy
@@ -233,6 +238,15 @@ namespace Jeopardy_Game
         {
             Timer2.Enabled = false;
             //this only allows this to tick once
+        }
+
+        private void sessionCheck()
+        {
+            if (Session["Question"] == null)
+                Response.Redirect("Error.aspx");
+            if (Session["Gameboard"] == null)
+                Response.Redirect("Error.aspx");
+
         }
     }
 }
