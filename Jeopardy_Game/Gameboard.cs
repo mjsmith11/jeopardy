@@ -7,15 +7,39 @@ using DatabaseConnection;
 
 namespace Jeopardy_Game
 {
+    /// <summary>
+    /// Manages the state of the game and questions.
+    /// </summary>
     public class Gameboard
     {
+        /// <summary>
+        /// 1 during first round, 2 during second round, 3 during final jeopardy
+        /// </summary>
         public int currentRound { get; set; }
+        /// <summary>
+        /// the player's score
+        /// </summary>
         public int currentScore { get; set; }
+        /// <summary>
+        /// questions being used in the current round
+        /// </summary>
         private Hashtable questions;
+        /// <summary>
+        /// categories being used in the current round
+        /// </summary>
         public List<string> roundCategories { get; }
+        /// <summary>
+        /// categeories being used in the current game
+        /// </summary>
         private List<string> gameCategories { get; set; }
+        /// <summary>
+        /// values of the questions for the current round in ascending order
+        /// </summary>
         public List<int> values { get; set; }
 
+        /// <summary>
+        /// initialize default values
+        /// </summary>
         public Gameboard()
         {
             currentRound = 0;
@@ -29,6 +53,10 @@ namespace Jeopardy_Game
             }
         }
 
+        /// <summary>
+        /// Add a question to the hash table and add the category to roundCategories if it is not there already
+        /// </summary>
+        /// <param name="q">Question to add</param>
         public void addQuestion(Question q)
         {
             string key = q.data.category + q.value;
@@ -39,22 +67,40 @@ namespace Jeopardy_Game
             }
         }
 
+        /// <summary>
+        /// Retrieve a question from the hashtable
+        /// </summary>
+        /// <param name="category">category of the question to retrieve</param>
+        /// <param name="value">value of the question to retrieve</param>
+        /// <returns>retrieved question</returns>
         public Question getQuestion(string category, int value)
         {
             string key = category + value;
             return (Question)questions[key];
         }
 
+        /// <summary>
+        /// adds to the current score for a correct answer
+        /// </summary>
+        /// <param name="amount">amount to add to the current score</param>
         public void increaseScore(int amount)
         {
             currentScore += amount;
         }
 
+        /// <summary>
+        /// subtracts from the score for a wrong answer
+        /// </summary>
+        /// <param name="amount">amount to subtract from the current score</param>
         public void decreaseScore(int amount)
         {
             currentScore -= amount;
         }
 
+        /// <summary>
+        /// Prepares the gameboard for the next round of play. The next round is determined by the current round
+        /// </summary>
+        /// <returns>true if round was set up successfully and false otherwise</returns>
         public bool SetupNextRound()
         {
             if (currentRound == 0)
@@ -70,6 +116,18 @@ namespace Jeopardy_Game
             }
         }
 
+        /// <summary>
+        /// Determines categories for the game
+        /// Selects categories for the first round:
+        /// Selects questions for first round
+        ///     Attempts to find unused questions and resets used status if there are not enough unused questions
+        ///     Attempts to include a picture question, but allows used status to take precedence
+        ///     Under the above conditions, selects 1 question for each value in each category
+        ///     Marks the selected questions as used
+        ///Randomly selects one question as a daily double
+        ///     
+        /// </summary>
+        /// <returns>true if round was set up successfully and false otherwise</returns>
         private bool setupFirstRound()
         {
             currentRound = 1;

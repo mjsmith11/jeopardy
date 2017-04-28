@@ -149,7 +149,6 @@
       <DependentUpon>Error.aspx</DependentUpon>
     </Compile>
     <Compile Include="Gameboard.cs" />
-    <Compile Include="GameBoardCell.cs" />
     <Compile Include="GameBoardUI.aspx.cs">
       <DependentUpon>GameBoardUI.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

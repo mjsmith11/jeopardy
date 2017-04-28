@@ -7,8 +7,16 @@ using System.Web.UI.WebControls;
 
 namespace Jeopardy_Game
 {
+    /// <summary>
+    /// page to handle transitioning between rounds of the game or to the end of the game.
+    /// </summary>
     public partial class EndOfRound : System.Web.UI.Page
     {
+        /// <summary>
+        /// Play sound effect if round timed out.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Init(object sender, EventArgs e)
         {
             if (Session["RoundTimeout"] != null)
@@ -24,6 +32,12 @@ namespace Jeopardy_Game
                 }
             }
         }
+
+        /// <summary>
+        /// set the text of the socre label
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
             sessionCheck();
@@ -31,6 +45,12 @@ namespace Jeopardy_Game
             lblScore.Text = Session["name"].ToString()+": $" + gb.currentScore;
         }
 
+        /// <summary>
+        /// Setup the gameboard for the next round and redirect to the appropriate page to begin the next round.
+        /// May redirect to EndGame.aspx if the player does not qualify to play final jeopardy
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnContinue_Click(object sender, EventArgs e)
         {
             Gameboard gb = (Gameboard)Session["Gameboard"];
@@ -57,6 +77,10 @@ namespace Jeopardy_Game
             }
         }
 
+
+        /// <summary>
+        /// Checking the session for name and Gameboard and raising an Error if either is null
+        /// </summary>
         private void sessionCheck()
         {
             if (Session["name"] == null)

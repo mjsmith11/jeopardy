@@ -8,8 +8,16 @@ using DatabaseConnection;
 
 namespace Jeopardy_Game
 {
+    /// <summary>
+    /// page to handle the end of the game including high scores and starting a new game.
+    /// </summary>
     public partial class EndGame : System.Web.UI.Page
     {
+        /// <summary>
+        /// Update high scores with the result of this game, display the high scores, clear session
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -28,11 +36,20 @@ namespace Jeopardy_Game
             }
         }
 
+        /// <summary>
+        /// Redirect to home page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnPlayAgain_Click(object sender, EventArgs e)
         {
             Response.Redirect("index.aspx");
         }
 
+        /// <summary>
+        /// create an html table in divHighScoreArea to display high scores
+        /// </summary>
+        /// <param name="highScores">HighScoreData objects to display</param>
         private void displayHighScores(List<object> highScores)
         {
             string html = "<table class='highScores'>";
@@ -95,6 +112,9 @@ namespace Jeopardy_Game
             }
         }
 
+        /// <summary>
+        /// Checking the session for name and Gameboard and raising an Error if either is null
+        /// </summary>
         private void sessionCheck()
         {
             if (Session["name"] == null)

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace DatabaseConnection
 {
+    /// <summary>
+    /// Object containing data stored in the database for a question record.
+    /// </summary>
     public class QuestionData
     {
         /// <summary>
