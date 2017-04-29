@@ -24,7 +24,7 @@ namespace Jeopardy_Game
             if (Session["RoundEnd"]==null)
             {
                 DateTime now = DateTime.Now;
-                Session["RoundEnd"] = now.AddMinutes(2);
+                Session["RoundEnd"] = now.AddMinutes(15);
             }
             updateRoundInfo();
 
