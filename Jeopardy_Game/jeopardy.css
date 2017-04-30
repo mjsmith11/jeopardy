@@ -2,7 +2,7 @@
     height:100%;
     font-family:Arial;
     background-image:url("Resources//images/jeopardy1.jpg");
-    background-size:1920px 1080px;
+    background-size:100%;
 }
  input.GameBoardCell
  {
@@ -59,12 +59,12 @@
  td.boardHead
  {
      text-shadow:3px 3px black;
-     width:275px;
+     width:16%;
  }
 
  td.boardCell
  {
-     height:125px;
+     height:100px;
  }
 
  table
@@ -102,7 +102,7 @@
  #tblGameboard
  {
      display:block;
-     width:1650px;
+     width:95%;
      table-layout:fixed;
      margin:0 auto;
  }
@@ -157,7 +157,7 @@
  }
  .info_area
  {
-     width:1650px;
+     width:95%;
      display:block;
      margin:0 auto;
  }
