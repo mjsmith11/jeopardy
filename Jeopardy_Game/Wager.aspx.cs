@@ -8,8 +8,16 @@ using System.Web.UI.WebControls;
 
 namespace Jeopardy_Game
 {
+    /// <summary>
+    /// page for the user to place his or her wager
+    /// </summary>
     public partial class Wager : System.Web.UI.Page
     {
+        /// <summary>
+        /// plays a sound effect and shows an image for final jeopardy or daily double. Shows the user the category and his or her current score
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Init(object sender, EventArgs e)
         {
             sessionCheck();
@@ -51,11 +59,21 @@ namespace Jeopardy_Game
             lblScore.Text = "Category: "+q.data.category+"&nbsp;&nbsp;&nbsp;"+"Score: $" + gb.currentScore;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
             
         }
 
+        /// <summary>
+        /// Validates the entered wager and redirects to the QuestionUI if valid and shows an error otherwise
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             Gameboard gb = (Gameboard)Session["Gameboard"];
@@ -83,6 +101,10 @@ namespace Jeopardy_Game
             }
         }
 
+        /// <summary>
+        /// validates the entered wager according to the daily double validation flowchart and displays any errors
+        /// </summary>
+        /// <returns>true if valid and false if invalid</returns>
         private bool dailyDoubleValidate()
         {
             Gameboard gb = (Gameboard)Session["Gameboard"];
@@ -132,6 +154,10 @@ namespace Jeopardy_Game
 
         }
 
+        /// <summary>
+        /// Validates entered wager according to the final jeopardy validation flow chart and displays any errors
+        /// </summary>
+        /// <returns>true if valid and false if invalid</returns>
         private bool finalValidate()
         {
             Gameboard gb = (Gameboard)Session["Gameboard"];
@@ -166,7 +192,10 @@ namespace Jeopardy_Game
                 return false;
             }
         }
-        
+        /// <summary>
+        /// sets the wager amount on the question in the session
+        /// </summary>
+        /// <param name="value">wager amount to set</param>
         private void setWager(int value)
         {
             Question q = null;
@@ -175,6 +204,10 @@ namespace Jeopardy_Game
             q.wager = value;
             Session["Question"] = q;
         }
+
+        /// <summary>
+        /// checks that Gameboard exists in the session and redirects to the error page if it is missing
+        /// </summary>
         private void sessionCheck()
         {
             if (Session["Gameboard"] == null)

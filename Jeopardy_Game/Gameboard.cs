@@ -198,6 +198,18 @@ namespace Jeopardy_Game
 
         }
 
+        /// <summary>
+        /// Selects categories for the second round:
+        /// Updates values for round 2
+        /// Selects questions for second round
+        ///     Attempts to find unused questions and resets used status if there are not enough unused questions
+        ///     Attempts to include a picture question, but allows used status to take precedence
+        ///     Under the above conditions, selects 1 question for each value in each category
+        ///     Marks the selected questions as used
+        ///Randomly selects two questions as a daily doubles
+        ///     
+        /// </summary>
+        /// <returns>true if round was set up successfully and false otherwise</returns>
         private bool setupSecondRound()
         {
             currentRound = 2;
@@ -272,6 +284,10 @@ namespace Jeopardy_Game
             return true;
         }
 
+        /// <summary>
+        /// Selects a single question with level >= 4 to use for final jeopardy and marks it as used
+        /// </summary>
+        /// <returns>true if round was set up successfully and false otherwise</returns>
         private bool setupFinalJeopardy()
         {
             currentRound = 3;
@@ -313,10 +329,20 @@ namespace Jeopardy_Game
             return true;           
         }
 
+        /// <summary>
+        /// retrieves final jeopardy question from the database
+        /// </summary>
+        /// <returns>final jeopardy question</returns>
         public Question getFinalQuestion()
         {
             return (Question)questions["final"];
         }
+
+        /// <summary>
+        /// checks that a list of questions contains at least question for each level 1-5
+        /// </summary>
+        /// <param name="questionList">list of questions to check</param>
+        /// <returns>true if list contains at least one question in each level and false otherwise</returns>
         private bool checkForAllLevels(List<object> questionList)
         {
             //check for each level
@@ -328,7 +354,11 @@ namespace Jeopardy_Game
             }
             return true;
         }
-
+        
+        /// <summary>
+        /// attempts up to 3 times to retrieve categories from the database
+        /// </summary>
+        /// <returns>list of categories on a successful read null otherwise</returns>
         private List<string> getCategories()
         {
             QuestionTable qt = new QuestionTable();
@@ -344,6 +374,11 @@ namespace Jeopardy_Game
             return result;
         }
 
+        /// <summary>
+        /// attempts up to three times to retrieve unused questions for a single category from the database
+        /// </summary>
+        /// <param name="category">category in which questions should be retreived</param>
+        /// <returns>list of Question objects if read is successful or null otherwise</returns>
         private List<object> getUnusedQuestionsByCategory(string category)
         {
             QuestionTable qt = new QuestionTable();
@@ -374,6 +409,11 @@ namespace Jeopardy_Game
             return result;
         }
 
+        /// <summary>
+        /// attempts up to three times to update question used status to true
+        /// </summary>
+        /// <param name="ids">ids of the questions to update</param>
+        /// <returns>true if the operation completed successfully and false otherwise</returns>
         private bool updateUsedQuestions(List<int> ids)
         {
             QuestionTable qt = new QuestionTable();

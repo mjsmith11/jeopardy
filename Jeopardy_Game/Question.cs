@@ -6,6 +6,9 @@ using DatabaseConnection;
 
 namespace Jeopardy_Game
 {
+    /// <summary>
+    /// contains data about questions used during game play
+    /// </summary>
     public class Question
     {
         /// <summary>
@@ -16,13 +19,30 @@ namespace Jeopardy_Game
         /// The amount the player wagered if it is a daily double or final
         /// </summary>
         public int wager { get; set; }
+        /// <summary>
+        /// true if a wager is being used for this question false otherwise
+        /// </summary>
         public bool wagerActive { get; set; }
+        /// <summary>
+        /// true if the question should be displayed on the gameboard and false otherwise
+        /// </summary>
         public bool display { get; set; }
+        /// <summary>
+        /// database data for this question
+        /// </summary>
         public QuestionData data { get; set; }
 
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public Question()
         { }
 
+        /// <summary>
+        /// initializes default values
+        /// </summary>
+        /// <param name="value">value for this question in dollars</param>
+        /// <param name="data">database data for this question</param>
         public Question(int value, QuestionData data)
         {
             this.value = value;

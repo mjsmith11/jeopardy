@@ -7,13 +7,26 @@ using System.Web.UI.WebControls;
 
 namespace Jeopardy_Game
 {
+    /// <summary>
+    /// home page of the game that asks the user for his or her name.
+    /// </summary>
     public partial class index : System.Web.UI.Page
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
 
+        /// <summary>
+        /// Validates the user's entered name. Starts the game if it is valid and displayes an error if invalid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             lblError.Text = string.Empty;

@@ -370,6 +370,11 @@ namespace DatabaseConnection
             }
             return records;
         }
+        /// <summary>
+        /// sets the used attribute to true for a set of questions
+        /// </summary>
+        /// <param name="ids">ids of the questions to update </param>
+        /// <returns>true if the operation succeeds and false if it fails</returns>
         public bool markQuestionsUsed(List<int> ids)
         {
 

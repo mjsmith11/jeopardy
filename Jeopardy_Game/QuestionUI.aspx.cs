@@ -7,8 +7,16 @@ using System.Web.UI.WebControls;
 
 namespace Jeopardy_Game
 {
+    /// <summary>
+    /// Web page for the user to interact with Question objects
+    /// </summary>
     public partial class QuestionUI : System.Web.UI.Page
     {
+        /// <summary>
+        /// initialize the timer for the question and start the music for final jeopardy
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Init(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -36,6 +44,13 @@ namespace Jeopardy_Game
             }
             btnContinue.Visible = false;
         }
+        /// <summary>
+        /// Read the question from the session and display its data in the page controls
+        /// Remove the question from the session
+        /// Show the timer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -76,6 +91,11 @@ namespace Jeopardy_Game
             }
         }
 
+        /// <summary>
+        /// get the set of possible answers for a question
+        /// </summary>
+        /// <param name="q">question to get answers for</param>
+        /// <returns>possible answers for the question in random order</returns>
         private string[] getAnswers(Question q)
         {
             string[] answers = new string[4];
@@ -96,6 +116,11 @@ namespace Jeopardy_Game
             }
         }
 
+        /// <summary>
+        /// show the possible answers in web controls and set button number that contains the correct answer
+        /// </summary>
+        /// <param name="answers">Answers in the order that they should appear</param>
+        /// <param name="q">Question data</param>
         private void displayAnswers(string[] answers, Question q)
         {
             string correctAns = q.data.correct_answer;
@@ -121,26 +146,50 @@ namespace Jeopardy_Game
 
         }
 
+        /// <summary>
+        /// process a click of first answer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnAnswer1_Click(object sender, EventArgs e)
         {
             processAnswerChoice(1);
         }
 
+        /// <summary>
+        /// process a click of second answer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnAnswer2_Click(object sender, EventArgs e)
         {
             processAnswerChoice(2);
         }
 
+        /// <summary>
+        /// process a click of the third answer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnAnswer3_Click(object sender, EventArgs e)
         {
             processAnswerChoice(3);
         }
 
+        /// <summary>
+        /// process a click of the fourth answer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnAnswer4_Click(object sender, EventArgs e)
         {
             processAnswerChoice(4);
         }
 
+        /// <summary>
+        /// stop the timer, check the answer, update the score, and show the correct answer and continue button
+        /// </summary>
+        /// <param name="buttonNum">number of the answer button that was clicked</param>
         private void processAnswerChoice(int buttonNum)
         {
             Timer1.Enabled = false;
@@ -163,6 +212,11 @@ namespace Jeopardy_Game
             showCorrect(correctButtonNum);
             btnContinue.Visible = true;
         }
+
+        /// <summary>
+        /// disable answer buttons, turn the correct answer green
+        /// </summary>
+        /// <param name="correctButtonNum">number of the button displaying the correct answer</param>
         private void showCorrect(int correctButtonNum)
         {
             btnAnswer1.Enabled = false;
@@ -197,6 +251,11 @@ namespace Jeopardy_Game
 
         }
 
+        /// <summary>
+        /// Redirect to the gameboard for first two rounds or endgame for final jeopardy
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnContinue_Click(object sender, EventArgs e)
         {
             if (Session["Final"] == null)
@@ -210,6 +269,11 @@ namespace Jeopardy_Game
             }
         }
 
+        /// <summary>
+        /// updates the timer and process an incorrect answer when timer expires
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Timer1_Tick(object sender, EventArgs e)
         {
             int timeLeft = Int32.Parse(Session["AnswerTime"].ToString());
@@ -234,12 +298,21 @@ namespace Jeopardy_Game
             }
         }
 
+        /// <summary>
+        /// disable timer2.  This timer ticks to trigger an event so that the user sees the ui updates
+        /// to show the correct answer and continue button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Timer2_Tick(object sender, EventArgs e)
         {
             Timer2.Enabled = false;
             //this only allows this to tick once
         }
 
+        /// <summary>
+        /// checks that Question and Gameboard exist in the Session and redirects to the error page if not
+        /// </summary>
         private void sessionCheck()
         {
             if (Session["Question"] == null)
